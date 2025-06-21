@@ -5,7 +5,8 @@ import {
     list,
     view,
     update,
-    token
+    token,
+    remove
 } from '../controllers/user.controller.mjs';
 
 const router = Router();
@@ -17,5 +18,6 @@ router.get('/', list);               // GET    /users
 router.get('/:id', view);            // GET    /users/:id
 router.put('/:id', update);          // PUT    /users/:id
 router.post('/:id/token', token);    // POST   /users/:id/token
+router.delete('/:id',   remove);   // DELETE /users/:id  
 
 export default router;

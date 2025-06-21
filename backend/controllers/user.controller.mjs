@@ -50,3 +50,12 @@ export const update = async (req, res, next) => {
         next(err);
     }
 };
+
+export const remove = async (req, res, next) => {
+    try {
+        await sb.deleteUser(req.params.id);
+        res.sendStatus(204);                           // no payload
+    } catch (err) {
+        next(err);
+    }
+};

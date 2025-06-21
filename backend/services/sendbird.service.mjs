@@ -60,6 +60,12 @@ async function viewUserById(userId) {
     return data;
 }
 
+/** Delete a user permanently. */
+async function deleteUser(userId) {
+    // 204 No-Content on success
+    await userApi.deleteUserById(apiToken, userId);
+}
+
 /* ------------------------------------------------------------------ *
  * CHANNEL HELPERS
  * ------------------------------------------------------------------ */
@@ -153,6 +159,7 @@ export {
     updateUser,
     listUsers,
     viewUserById,
+    deleteUser,
     createChannel,
     updateChannel,
     listChannels,
