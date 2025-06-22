@@ -92,28 +92,36 @@ async function deleteUser(userId) {
 /* ------------------------------------------------------------------ *
  * CHANNEL HELPERS
  * ------------------------------------------------------------------ */
-async function createChannel(opts = {}) {
-    const body = SendbirdPlatformSdk.GcCreateChannelData.constructFromObject({
-        user_ids: opts.userIds,
-        name: opts.name,
-        is_public: opts.isPublic,
-        is_distinct: opts.isDistinct,
-        cover_url: opts.coverUrl,
-        custom_type: opts.customType,
-        data: opts.data,
+async function createChannel(payload = {
+    userIds,
+    coverUrl,
+    name,
+    isPublic,
+    isDistinct,
+}) {
+    const data = await gcApi.gcCreateChannel(apiToken, {
+        name: payload.name,
+        userIds: payload.userIds,
+        coverUrl: payload.coverUrl,
+        isPublic: payload.isPublic,
+        isDistinct: payload.isDistinct,
     });
-
-    const { data: channel } = await gcApi.gcCreateChannel(apiToken, {
-        gcCreateChannelData: body,
-    });
-    return channel;
+    return data;
 }
 
-async function updateChannel(channelUrl, params = {}) {
-    const body = SendbirdPlatformSdk.GcUpdateChannelByUrlData.constructFromObject({ ...params });
+async function updateChannel(channelUrl, payload = {
+    coverUrl,
+    name,
+    isPublic,
+    isDistinct,
+}) {
 
     const data = await gcApi.gcUpdateChannelByUrl(apiToken, channelUrl, {
-        gcUpdateChannelByUrlData: body,
+        name: payload.name,
+        coverUrl: payload.coverUrl,
+        isPublic: payload.isPublic,
+        isDistinct: payload.isDistinct,
+        data: payload.data || {},
     });
     return data;
 }
@@ -122,18 +130,24 @@ async function listChannels({
     limit = 20,
     token,
     showMember = false,
-    name,
-    customTypes,
     isPublic,
+    isDistinct,
+    isSuper,
+    createdAfter,
+    createdBefore,
+    showEmpty
 } = {}) {
-    const data = await gcApi.gcListChannels(apiToken, {
-        limit,
+    const data = await gcApi.gcListChannels(apiToken, 
         token,
-        show_member: showMember,
-        name_contains: name,
-        custom_types: customTypes,
-        is_public: isPublic,
-    });
+        limit,
+        isDistinct,
+        isPublic,
+        isSuper,
+        createdAfter,
+        createdBefore,
+        showEmpty,
+        showMember
+    );
     return data;
 }
 
