@@ -1,4 +1,5 @@
-import SendbirdPlatformSdk from 'sendbird-platform-sdk';
+import SendbirdPlatformSdk, { createConfiguration, CreateUserData, GroupChannelApi, ServerConfiguration, UserApi } from 'sendbird-platform-sdk-typescript';
+import { randomUUID } from 'crypto';
 
 /* ------------------------------------------------------------------ *
  * CONFIG
@@ -9,25 +10,35 @@ const appId = process.env.SENDBIRD_APP_ID;
 /* ------------------------------------------------------------------ *
  * API INSTANCES (share the same base URL)
  * ------------------------------------------------------------------ */
-const userApi = new SendbirdPlatformSdk.UserApi();
-const gcApi = new SendbirdPlatformSdk.GroupChannelApi();
-
-[userApi.apiClient, gcApi.apiClient].forEach(
-    c => (c.basePath = `https://api-${appId}.sendbird.com`)
+const serverConfig = new ServerConfiguration(
+    `https://api-${appId}.sendbird.com`,
+    { app_id: appId }
 );
+
+const configuration = createConfiguration({
+  baseServer: serverConfig,
+});
+
+const userApi = new UserApi(configuration);
+const gcApi = new GroupChannelApi(configuration);
+
 
 /* ------------------------------------------------------------------ *
  * USERS
  * ------------------------------------------------------------------ */
-async function createUser(userId, nickname, profileUrl) {
-    const { data } = await userApi.createUser(apiToken, {
-        createUserData: new SendbirdPlatformSdk.CreateUserData(
-            userId,
-            nickname,
-            profileUrl
-        ),
-    });
-    return data;
+async function createUser(nickname, profileUrl) {
+
+    let createUserData = new CreateUserData();
+
+    createUserData = {
+        userId: randomUUID(),
+        nickname,
+        profileUrl,
+        issueAccessToken: false, // once create user issue access token
+    };
+
+    const user = await userApi.createUser(apiToken, createUserData);
+    return user;
 }
 
 async function createUserToken(userId, expiresInSec = 60 * 60 * 24) {

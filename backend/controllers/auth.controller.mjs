@@ -1,4 +1,4 @@
-import * as sb from '../services/sendbird.service.mjs';
+import { createUser, createUserToken } from '../services/sendbird.service.mjs';
 
 /**
  * Login (or sign-up) and return a fresh Sendbird access token.
@@ -6,13 +6,13 @@ import * as sb from '../services/sendbird.service.mjs';
  */
 export const login = async (req, res, next) => {
     try {
-        const { userId, nickname, profileUrl } = req.body;
+        const { nickname, profileUrl } = req.body;
 
         // upsert the user (idempotent)
-        await sb.createUser(userId, nickname || userId, profileUrl);
+        await createUser(nickname || userId, profileUrl);
 
         // issue 24-h token
-        const tokenInfo = await sb.createUserToken(userId);
+        const tokenInfo = await createUserToken(userId);
         res.json(tokenInfo);            // { user_id, token, expires_at }
     } catch (err) {
         next(err);
