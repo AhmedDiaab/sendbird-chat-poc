@@ -137,7 +137,7 @@ async function listChannels({
     createdBefore,
     showEmpty
 } = {}) {
-    const data = await gcApi.gcListChannels(apiToken, 
+    const data = await gcApi.gcListChannels(apiToken,
         token,
         limit,
         isDistinct,
@@ -150,6 +150,13 @@ async function listChannels({
     );
     return data;
 }
+
+/** View a single channel by URL. */
+async function viewChannel(channelUrl, { showMember = false, showDeliveryReceipt = false, showReadReceipt = false } = {}) {
+    const data = await gcApi.gcViewChannelByUrl(apiToken, channelUrl, showDeliveryReceipt, showReadReceipt, showMember);
+    return data;
+}
+
 
 /* ------------------  Membership ------------------ */
 async function inviteToChannel(channelUrl, userIds = []) {
@@ -205,4 +212,5 @@ export {
     rejectInvitation,
     joinChannel,
     leaveChannel,
+    viewChannel
 };

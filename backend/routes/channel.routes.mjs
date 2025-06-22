@@ -8,7 +8,8 @@ import {
     join,
     leave,
     accept,
-    reject
+    reject,
+    view
 } from '../controllers/channel.controller.mjs';
 
 const router = Router();
@@ -19,6 +20,7 @@ router.use(withAuth);
 router.post('/', create);            // POST /channels
 router.get('/', list);               // GET  /channels
 router.put('/:url', update);         // PUT  /channels/:url
+router.get ('/:url', view);          // GET  /channels/:url
 
 /* Membership */
 router.post('/:url/invite', invite); // POST /channels/:url/invite
