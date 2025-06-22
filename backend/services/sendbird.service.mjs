@@ -1,4 +1,4 @@
-import SendbirdPlatformSdk, { createConfiguration, CreateUserData, GroupChannelApi, ServerConfiguration, UserApi } from 'sendbird-platform-sdk-typescript';
+import SendbirdPlatformSdk, { createConfiguration, CreateUserData, CreateUserTokenData, GroupChannelApi, ServerConfiguration, UserApi } from 'sendbird-platform-sdk-typescript';
 import { randomUUID } from 'crypto';
 
 /* ------------------------------------------------------------------ *
@@ -37,37 +37,35 @@ async function createUser(nickname, profileUrl) {
         issueAccessToken: false, // once create user issue access token
     };
 
-    const user = await userApi.createUser(apiToken, createUserData);
-    return user;
+    const data = await dataApi.createUser(apiToken, createUserData);
+    return data;
 }
 
 async function createUserToken(userId, expiresInSec = 60 * 60 * 24) {
-    const body = new SendbirdPlatformSdk.CreateUserTokenData({
+    const body = new CreateUserTokenData({
         expires_at: Math.floor(Date.now() / 1000) + expiresInSec,
     });
 
-    const { data } = await userApi.createUserToken(apiToken, userId, {
-        createUserTokenData: body,
-    });
+    const data = await userApi.createUserToken(apiToken, userId, body);
     return data;
 }
 
 async function updateUser(userId, params = {}) {
     const body = SendbirdPlatformSdk.UpdateUserByIdData.constructFromObject({ ...params });
 
-    const { data } = await userApi.updateUserById(apiToken, userId, {
+    const data = await userApi.updateUserById(apiToken, userId, {
         updateUserByIdData: body,
     });
     return data;
 }
 
 async function listUsers(query = {}) {
-    const { data } = await userApi.listUsers(apiToken, query);
+    const data = await userApi.listUsers(apiToken, query);
     return data;
 }
 
 async function viewUserById(userId) {
-    const { data } = await userApi.viewUserById(apiToken, userId);
+    const data = await userApi.viewUserById(apiToken, userId);
     return data;
 }
 
@@ -100,7 +98,7 @@ async function createChannel(opts = {}) {
 async function updateChannel(channelUrl, params = {}) {
     const body = SendbirdPlatformSdk.GcUpdateChannelByUrlData.constructFromObject({ ...params });
 
-    const { data } = await gcApi.gcUpdateChannelByUrl(apiToken, channelUrl, {
+    const data = await gcApi.gcUpdateChannelByUrl(apiToken, channelUrl, {
         gcUpdateChannelByUrlData: body,
     });
     return data;
@@ -114,7 +112,7 @@ async function listChannels({
     customTypes,
     isPublic,
 } = {}) {
-    const { data } = await gcApi.gcListChannels(apiToken, {
+    const data = await gcApi.gcListChannels(apiToken, {
         limit,
         token,
         show_member: showMember,
@@ -127,35 +125,35 @@ async function listChannels({
 
 /* ------------------  Membership ------------------ */
 async function inviteToChannel(channelUrl, userIds = []) {
-    const { data } = await gcApi.gcInviteAsMembers(apiToken, channelUrl, {
+    const data = await gcApi.gcInviteAsMembers(apiToken, channelUrl, {
         gcInviteAsMembersData: new SendbirdPlatformSdk.GcInviteAsMembersData(userIds),
     });
     return data;
 }
 
 async function acceptInvitation(channelUrl, userId) {
-    const { data } = await gcApi.gcAcceptInvitation(apiToken, channelUrl, {
+    const data = await gcApi.gcAcceptInvitation(apiToken, channelUrl, {
         gcAcceptInvitationData: new SendbirdPlatformSdk.GcAcceptInvitationData(channelUrl, userId),
     });
     return data;
 }
 
 async function rejectInvitation(channelUrl, userId) {
-    const { data } = await gcApi.gcDeclineInvitation(apiToken, channelUrl, {
+    const data = await gcApi.gcDeclineInvitation(apiToken, channelUrl, {
         gcDeclineInvitationData: new SendbirdPlatformSdk.GcDeclineInvitationData(channelUrl, userId),
     });
     return data;
 }
 
 async function joinChannel(channelUrl, userId, accessCode = '') {
-    const { data } = await gcApi.gcJoinChannel(apiToken, channelUrl, {
+    const data = await gcApi.gcJoinChannel(apiToken, channelUrl, {
         gcJoinChannelData: new SendbirdPlatformSdk.GcJoinChannelData(channelUrl, userId, accessCode),
     });
     return data;
 }
 
 async function leaveChannel(channelUrl, userIds = []) {
-    const { data } = await gcApi.gcLeaveChannel(apiToken, channelUrl, {
+    const data = await gcApi.gcLeaveChannel(apiToken, channelUrl, {
         gcLeaveChannelData: new SendbirdPlatformSdk.GcLeaveChannelData(userIds),
     });
     return data;
