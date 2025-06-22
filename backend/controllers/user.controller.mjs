@@ -31,7 +31,11 @@ export const token = async (req, res, next) => {
 /* LIST  ------------------------------------------------------------ */
 export const list = async (req, res, next) => {
     try {
-        const users = await listUsers(req.query); // ?limit&token&nickname
+        const users = await listUsers({
+            limit: req.query?.limit || 10,
+            activeMode: req.query?.activeMode || 'all',
+            token: req.query?.token
+        }); // ?limit&token&nickname
         res.json(users);
     } catch (err) {
         next(err);
@@ -51,7 +55,11 @@ export const view = async (req, res, next) => {
 /* UPDATE  ---------------------------------------------------------- */
 export const update = async (req, res, next) => {
     try {
-        const user = await updateUser(req.params.id, req.body);
+        const user = await updateUser(req.params.id, {
+            nickname: req.body.nickname,
+            profileUrl: req.body.profileUrl,
+            isActive: req.body.isActive
+        });
         res.json(user);
     } catch (err) {
         next(err);

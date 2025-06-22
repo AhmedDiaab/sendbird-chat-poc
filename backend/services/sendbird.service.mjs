@@ -16,7 +16,7 @@ const serverConfig = new ServerConfiguration(
 );
 
 const configuration = createConfiguration({
-  baseServer: serverConfig,
+    baseServer: serverConfig,
 });
 
 const userApi = new UserApi(configuration);
@@ -51,16 +51,30 @@ async function createUserToken(userId, expiresInSec = 60 * 60 * 24) {
 }
 
 async function updateUser(userId, params = {}) {
-    const body = SendbirdPlatformSdk.UpdateUserByIdData.constructFromObject({ ...params });
-
     const data = await userApi.updateUserById(apiToken, userId, {
-        updateUserByIdData: body,
+        nickname: params.nickname,
+        profileUrl: params.profileUrl,
+        isActive: params.isActive,
+        // sessionTokenExpiresAt,
     });
     return data;
 }
 
-async function listUsers(query = {}) {
-    const data = await userApi.listUsers(apiToken, query);
+async function listUsers(query = {
+    limit, // limit per api
+    token, // specify token
+    activeMode, // 'activated' | 'deactivated' | 'all' | Specifies the activation status of the users in the list. Acceptable values are `activated`, `deactivated`, and `all`. (Default: `activated`) (optional)
+    // showBot: false, // show bots 
+    // userIds: "user_ids_example", 
+    // nickname: "nickname_example", 
+    // nicknameStartswith: "nickname_startswith_example", 
+    // metadatakey: "metadatakey_example",
+    // string | Searches for blocked users with metadata containing an item with the key specified by the metadatakey parameter above, and the value of that item matches one or more values specified by this parameter. The string should be specified with multiple urlencoded metadata values separated by commas (for example, `?metadatavalues_in=urlencoded_value_1, urlencoded_value_2`). This parameter should be specified in conjunction with the `metadatakey` above. (optional)
+    // metadatavaluesIn: "metadatavalues_in_example", 
+    // apiToken: "{{API_TOKEN}}",
+
+}) {
+    const data = await userApi.listUsers(apiToken, query.token, query.limit, query.activeMode);
     return data;
 }
 
