@@ -37,7 +37,7 @@ async function createUser(nickname, profileUrl) {
         issueAccessToken: false, // once create user issue access token
     };
 
-    const data = await dataApi.createUser(apiToken, createUserData);
+    const data = await userApi.createUser(apiToken, createUserData);
     return data;
 }
 
