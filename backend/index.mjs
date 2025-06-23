@@ -4,11 +4,13 @@ import express from 'express';
 import usersRouter from './routes/user.routes.mjs';
 import chRouter from './routes/channel.routes.mjs';
 import authRouter from './routes/auth.routes.mjs';
+import cors from 'cors';
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.use('/auth', authRouter);     // public
 app.use('/users', usersRouter);   // protected by x-api-key

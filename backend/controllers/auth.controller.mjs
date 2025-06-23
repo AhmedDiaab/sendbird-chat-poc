@@ -9,10 +9,10 @@ export const login = async (req, res, next) => {
         const { nickname, profileUrl } = req.body;
 
         // upsert the user (idempotent)
-        await createUser(nickname || userId, profileUrl);
+        const user = await createUser(nickname || userId, profileUrl);
 
         // issue 24-h token
-        const tokenInfo = await createUserToken(userId);
+        const tokenInfo = await createUserToken(user.userId);
         res.json(tokenInfo);            // { user_id, token, expires_at }
     } catch (err) {
         next(err);
