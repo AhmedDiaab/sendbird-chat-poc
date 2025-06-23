@@ -8,10 +8,13 @@ import { useUpdateUser } from "@/hooks/users/useUpdateUser.hook";
 import { useDeleteUser } from "@/hooks/users/useDeleteUser.hook";
 import { useViewUser } from "@/hooks/users/useViewUser.hook";
 import { useGenerateToken } from "@/hooks/users/useGenerateToken.hook";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 
 export default function UserCatalogPage() {
   const [nickName, setNickName] = useState("");
   const [avatar, setAvatar] = useState("");
+  const [isActive, setIsActive] = useState(false);
 
   const list = useListUsers();
   const create = useCreateUser();
@@ -35,6 +38,14 @@ export default function UserCatalogPage() {
             value={avatar}
             onChange={(e) => setAvatar(e.target.value)}
           />
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="isActive"
+              checked={isActive}
+              onCheckedChange={(val) => setIsActive(Boolean(val))}
+            />
+            <Label htmlFor="isActive">Active</Label>
+          </div>
           <div className="flex flex-wrap gap-2">
             <Button onClick={() => create.mutate({ nickName, avatar })}>
               Create
@@ -58,13 +69,46 @@ export default function UserCatalogPage() {
               <div>
                 <div className="font-semibold">{user.nickname}</div>
                 <div className="text-sm text-gray-500">{user.userId}</div>
+                <div className="text-xs text-green-600">
+                  {user.isActive ? "Active" : "Inactive"}
+                </div>
               </div>
             </div>
             <div className="mt-4 flex gap-2 flex-wrap">
-              <Button size="sm" onClick={() => update.mutate({ userId: user.userId, nickName: `${user.nickname} (Updated)`, avatar: `${user.profileUrl } (Updated)` })}>Update</Button>
-              <Button size="sm" variant="destructive" onClick={() => remove.mutate(user.userId)}>Delete</Button>
-              <Button size="sm" variant="outline" onClick={() => view.mutate(user.userId)}>View</Button>
-              <Button size="sm" variant="outline" onClick={() => generateToken.mutate(user.userId)}>Token</Button>
+              <Button
+                size="sm"
+                onClick={() =>
+                  update.mutate({
+                    userId: user.userId,
+                    nickname: nickName,
+                    profileUrl: avatar,
+                    isActive,
+                  })
+                }
+              >
+                Update
+              </Button>
+              <Button
+                size="sm"
+                variant="destructive"
+                onClick={() => remove.mutate(user.userId)}
+              >
+                Delete
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => view.mutate(user.userId)}
+              >
+                View
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => generateToken.mutate(user.userId)}
+              >
+                Token
+              </Button>
             </div>
           </Card>
         ))}
