@@ -1,12 +1,30 @@
+import { NavLink } from "react-router-dom";
+
+const navItems = [
+  { path: "/users", label: "Users" },
+  { path: "/channel-groups", label: "Channel Groups" },
+];
+
 export default function Sidebar() {
   return (
     <div className="w-64 bg-gray-900 text-white p-4 space-y-4">
       <div className="text-xl font-bold">Dashboard</div>
       <nav className="space-y-2">
-        <a href="/users" className="block hover:underline">
-          Users
-        </a>
-        {/* Add more links */}
+        {navItems.map(({ path, label }) => (
+          <NavLink
+            key={path}
+            to={path}
+            className={({ isActive }) =>
+              `block px-2 py-1 rounded ${
+                isActive
+                  ? "bg-primary text-white font-semibold"
+                  : "text-gray-300 hover:text-white"
+              }`
+            }
+          >
+            {label}
+          </NavLink>
+        ))}
       </nav>
     </div>
   );

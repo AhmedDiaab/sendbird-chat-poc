@@ -3,6 +3,7 @@ import LoginPage from "@/pages/LoginPage";
 import UserCatalogPage from "@/pages/UsersCatalog/UsersCatalogPage";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import MainLayout from "@/layouts/MainLayout";
+import ChannelGroupCatalogPage from "@/pages/ChatGroupsCatalog/ChatGroupsCatalogPage";
 
 export default function AppRoutes() {
   return (
@@ -17,7 +18,7 @@ export default function AppRoutes() {
         }
       >
         <Route path="users" element={<UserCatalogPage />} />
-        {/* Add more nested protected routes here */}
+        <Route path="channel-groups" element={<ChannelGroupCatalogPage />} />
       </Route>
     </Routes>
   );
