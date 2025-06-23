@@ -93,7 +93,7 @@ export default function UserCatalogPage() {
             <Label htmlFor="active">Active</Label>
           </div>
           <div className="flex flex-wrap gap-2">
-            <Button onClick={handleCreate}>Create</Button>
+            {!selectedId && <Button onClick={handleCreate}>Create</Button>}
             {selectedId && (
               <Button variant="secondary" onClick={handleUpdate}>
                 Save Changes
@@ -101,6 +101,10 @@ export default function UserCatalogPage() {
             )}
             <Button variant="outline" onClick={() => list.refetch()}>
               Refresh List
+            </Button>
+
+            <Button variant="ghost" onClick={() => clearForm()}>
+              Clear Selection
             </Button>
           </div>
         </CardContent>
