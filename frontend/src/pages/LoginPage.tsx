@@ -10,9 +10,13 @@ export default function LoginPage() {
   const login = useLogin();
   const navigate = useNavigate();
 
-  const handle = async () => {
-    await login.mutateAsync(userId.trim());
-    navigate("/channels");
+  const loginAndNavigate = async (id: string) => {
+    await login.mutateAsync({
+      userId: id,
+      nickname: id,
+      profileUrl: "https://i.pravatar.cc/150?img=2",
+    });
+    navigate("/users");
   };
 
   return (
@@ -27,10 +31,19 @@ export default function LoginPage() {
           />
           <Button
             className="w-full"
-            onClick={handle}
+            onClick={() => loginAndNavigate(userId.trim())}
             disabled={!userId.trim() || login.isPending}
           >
             {login.isPending ? "Signing in…" : "Continue"}
+          </Button>
+          <div className="text-center text-xs text-gray-500">or</div>
+          <Button
+            variant="secondary"
+            className="w-full"
+            onClick={() => loginAndNavigate("admin")}
+            disabled={login.isPending}
+          >
+            {login.isPending ? "Signing in…" : "Continue as Admin"}
           </Button>
         </CardContent>
       </Card>
