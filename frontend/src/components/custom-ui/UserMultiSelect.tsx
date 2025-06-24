@@ -6,7 +6,8 @@ import {
 import { Command, CommandGroup, CommandItem } from "@/components/ui/command";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useListUsers } from "@/hooks/users/useListUsers.hook";
+import { useInfiniteListUsers } from "@/hooks/users/useInfiniteListUsers.hook"; // You must create this hook using useInfiniteQuery
+import { useRef, useEffect } from "react";
 
 export function UserMultiSelect({
   selected,
@@ -15,7 +16,11 @@ export function UserMultiSelect({
   selected: string[];
   setSelected: React.Dispatch<React.SetStateAction<string[]>>;
 }) {
-  const { data } = useListUsers({ token: null });
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useInfiniteListUsers();
+
+  const allUsers = data?.pages.flatMap((page) => page.users) || [];
 
   const toggleSelection = (userId: string) => {
     setSelected((prev) =>
@@ -24,6 +29,25 @@ export function UserMultiSelect({
         : [...prev, userId]
     );
   };
+
+  // Infinite scroll on bottom reach
+  useEffect(() => {
+    const div = scrollRef.current;
+    if (!div) return;
+
+    const handleScroll = () => {
+      if (
+        div.scrollTop + div.clientHeight >= div.scrollHeight - 20 &&
+        hasNextPage &&
+        !isFetchingNextPage
+      ) {
+        fetchNextPage();
+      }
+    };
+
+    div.addEventListener("scroll", handleScroll);
+    return () => div.removeEventListener("scroll", handleScroll);
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
   return (
     <Popover>
@@ -34,10 +58,13 @@ export function UserMultiSelect({
             : "Select Users"}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-80 p-0">
+      <PopoverContent
+        className="w-80 max-h-72 overflow-y-auto p-0"
+        ref={scrollRef}
+      >
         <Command>
           <CommandGroup>
-            {data?.users?.map((user: any) => {
+            {allUsers.map((user: any) => {
               const isChecked = selected.includes(user.userId);
               return (
                 <CommandItem
@@ -48,7 +75,7 @@ export function UserMultiSelect({
                   <Checkbox
                     checked={isChecked}
                     onCheckedChange={() => toggleSelection(user.userId)}
-                    onClick={(e) => e.stopPropagation()} // prevent double toggle
+                    onClick={(e) => e.stopPropagation()}
                   />
                   <span>{user.nickname || "Unnamed User"}</span>
                 </CommandItem>

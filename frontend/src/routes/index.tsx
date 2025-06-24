@@ -3,7 +3,7 @@ import LoginPage from "@/pages/LoginPage";
 import UserCatalogPage from "@/pages/UsersCatalog/UsersCatalogPage";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import MainLayout from "@/layouts/MainLayout";
-import ChannelGroupCatalogPage from "@/pages/ChatGroupsCatalog/ChatGroupsCatalogPage";
+import ChannelGroupCatalogPage from "@/pages/ChannelGroupsCatalog/ChannelGroupsCatalogPage";
 
 export default function AppRoutes() {
   return (

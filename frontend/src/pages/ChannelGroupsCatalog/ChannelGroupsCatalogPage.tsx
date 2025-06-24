@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useCreateChannelGroup } from "@/hooks/channel-groups/useCreateChannelGroup.hook";
 import { useListChannelGroups } from "@/hooks/channel-groups/useListChannelGroups.hook";
 import { UserMultiSelect } from "@/components/custom-ui/UserMultiSelect";
+import { truncate } from "@/utils/truncate.util";
 
 export default function ChannelGroupCatalogPage() {
   const [name, setName] = useState("");
@@ -15,9 +16,18 @@ export default function ChannelGroupCatalogPage() {
   const [isDistinct, setIsDistinct] = useState(false);
   const [userIds, setUserIds] = useState<string[]>([]);
 
-  const create = useCreateChannelGroup();
-  const list = useListChannelGroups();
+  const [pageToken, setPageToken] = useState<string | null>(null);
+  const list = useListChannelGroups({ token: pageToken });
 
+  const nextPage = () => {
+    if (list.data?.next) setPageToken(list.data.next);
+  };
+
+  const prevPage = () => {
+    setPageToken(null);
+  };
+
+  const create = useCreateChannelGroup();
   const handleCreate = () => {
     create.mutate(
       { name, userIds, coverUrl, isPublic, isDistinct },
@@ -77,19 +87,21 @@ export default function ChannelGroupCatalogPage() {
         </CardContent>
       </Card>
 
-      {list.data?.groups?.length > 0 && (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {list.data.groups.map((group: any) => (
-            <Card key={group.id} className="p-4">
+      {list.data?.channels?.length > 0 && (
+        <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-1">
+          {list.data.channels?.map((channel: any) => (
+            <Card key={channel.id} className="p-4">
               <div className="space-y-1">
-                <div className="font-semibold text-lg">{group.name}</div>
-                <div className="text-sm text-gray-500">{group.id}</div>
+                <div className="font-semibold text-lg">{channel.name}</div>
+                <div className="font-semibold text-lg">{truncate(channel.channelUrl)}</div>
+                <div className="text-sm text-gray-500">{channel.id}</div>
                 <div className="text-sm text-gray-500">
-                  Members: {group.userIds?.length || 0}
+                  Members: {channel.memberCount || 0}
                 </div>
                 <div className="text-xs">
-                  {group.isPublic ? "Public" : "Private"} /{" "}
-                  {group.isDistinct ? "Distinct" : "Shared"}
+                  {channel.isPublic ? "Public" : "Private"} /{" "}
+                  {channel.isDistinct ? "Distinct" : "Shared"}/{" "}
+                  {channel.isAccessCodeRequired ? "Access Code Required" : "No Access Code Required"}
                 </div>
               </div>
             </Card>
