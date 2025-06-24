@@ -12,9 +12,11 @@ import { useRef, useEffect } from "react";
 export function UserMultiSelect({
   selected,
   setSelected,
+  hiddenIds = [],
 }: {
   selected: string[];
   setSelected: React.Dispatch<React.SetStateAction<string[]>>;
+  hiddenIds?: string[]; // You can add an array of excluded user IDs to exclude them from the selection
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -64,23 +66,25 @@ export function UserMultiSelect({
       >
         <Command>
           <CommandGroup>
-            {allUsers.map((user: any) => {
-              const isChecked = selected.includes(user.userId);
-              return (
-                <CommandItem
-                  key={user.userId}
-                  onSelect={() => toggleSelection(user.userId)}
-                  className="flex items-center gap-2 cursor-pointer"
-                >
-                  <Checkbox
-                    checked={isChecked}
-                    onCheckedChange={() => toggleSelection(user.userId)}
-                    onClick={(e) => e.stopPropagation()}
-                  />
-                  <span>{user.nickname || "Unnamed User"}</span>
-                </CommandItem>
-              );
-            })}
+            {allUsers
+              .filter((user: any) => !hiddenIds?.includes(user.userId))
+              .map((user: any) => {
+                const isChecked = selected.includes(user.userId);
+                return (
+                  <CommandItem
+                    key={user.userId}
+                    onSelect={() => toggleSelection(user.userId)}
+                    className="flex items-center gap-2 cursor-pointer"
+                  >
+                    <Checkbox
+                      checked={isChecked}
+                      onCheckedChange={() => toggleSelection(user.userId)}
+                      onClick={(e) => e.stopPropagation()}
+                    />
+                    <span>{user.nickname || "Unnamed User"}</span>
+                  </CommandItem>
+                );
+              })}
           </CommandGroup>
         </Command>
       </PopoverContent>

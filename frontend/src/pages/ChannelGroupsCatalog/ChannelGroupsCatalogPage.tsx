@@ -10,6 +10,7 @@ import { useDeleteChannelGroup } from "@/hooks/channel-groups/useDeleteChannelGr
 import { UserMultiSelect } from "@/components/custom-ui/UserMultiSelect";
 import { truncate } from "@/utils/truncate.util";
 import { useUpdateChannelGroup } from "@/hooks/channel-groups/useUpdateChannelGroup.hook";
+import { useNavigate } from "react-router-dom";
 
 export default function ChannelGroupCatalogPage() {
   const [name, setName] = useState("");
@@ -29,6 +30,8 @@ export default function ChannelGroupCatalogPage() {
 
   const nextPage = () => list.data?.next && setPageToken(list.data.next);
   const prevPage = () => setPageToken(null);
+
+  const navigate = useNavigate();
 
   const clearForm = () => {
     setName("");
@@ -158,11 +161,23 @@ export default function ChannelGroupCatalogPage() {
                   Edit
                 </Button>
                 <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/channel-groups/${channel.channelUrl}/members`);
+                  }}
+                >
+                  Manage Members
+                </Button>
+                <Button
                   size="sm"
                   variant="destructive"
                   onClick={(e) => {
                     e.stopPropagation();
-                    remove.mutate(channel.channelUrl, { onSuccess: list.refetch });
+                    remove.mutate(channel.channelUrl, {
+                      onSuccess: list.refetch,
+                    });
                   }}
                 >
                   Delete
