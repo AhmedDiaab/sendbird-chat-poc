@@ -3,7 +3,7 @@
 A full-stack proof of concept (POC) for managing users, channel groups, and their memberships. Built with:
 
 - **Frontend**: React + Vite + ShadCN UI + React Query + React Router
-- **Backend**: Node.js + Express (API not included in this repo)
+- **Backend**: Node.js + Express 
 - **State Management**: Local storage (auth), React Query (data fetching/caching)
 
 ---
