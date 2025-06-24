@@ -6,8 +6,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { useCreateChannelGroup } from "@/hooks/channel-groups/useCreateChannelGroup.hook";
 import { useListChannelGroups } from "@/hooks/channel-groups/useListChannelGroups.hook";
+import { useDeleteChannelGroup } from "@/hooks/channel-groups/useDeleteChannelGroup.hook";
 import { UserMultiSelect } from "@/components/custom-ui/UserMultiSelect";
 import { truncate } from "@/utils/truncate.util";
+import { useUpdateChannelGroup } from "@/hooks/channel-groups/useUpdateChannelGroup.hook";
 
 export default function ChannelGroupCatalogPage() {
   const [name, setName] = useState("");
@@ -15,25 +17,18 @@ export default function ChannelGroupCatalogPage() {
   const [isPublic, setIsPublic] = useState(true);
   const [isDistinct, setIsDistinct] = useState(false);
   const [userIds, setUserIds] = useState<string[]>([]);
+  const [selectedChannelUrl, setSelectedChannelUrl] = useState<string | null>(
+    null
+  );
 
   const [pageToken, setPageToken] = useState<string | null>(null);
   const list = useListChannelGroups({ token: pageToken });
-
-  const nextPage = () => {
-    if (list.data?.next) setPageToken(list.data.next);
-  };
-
-  const prevPage = () => {
-    setPageToken(null);
-  };
-
   const create = useCreateChannelGroup();
-  const handleCreate = () => {
-    create.mutate(
-      { name, userIds, coverUrl, isPublic, isDistinct },
-      { onSuccess: () => clearForm() }
-    );
-  };
+  const update = useUpdateChannelGroup();
+  const remove = useDeleteChannelGroup();
+
+  const nextPage = () => list.data?.next && setPageToken(list.data.next);
+  const prevPage = () => setPageToken(null);
 
   const clearForm = () => {
     setName("");
@@ -41,7 +36,40 @@ export default function ChannelGroupCatalogPage() {
     setIsPublic(true);
     setIsDistinct(false);
     setUserIds([]);
+    setSelectedChannelUrl(null);
     list.refetch();
+  };
+
+  const handleSubmit = () => {
+    if (selectedChannelUrl) {
+      update.mutate(
+        {
+          channelUrl: selectedChannelUrl,
+          coverUrl,
+          isDistinct,
+          isPublic,
+          name,
+        },
+        {
+          onSuccess: clearForm,
+        }
+      );
+    } else {
+      create.mutate(
+        { name, userIds, coverUrl, isPublic, isDistinct },
+        { onSuccess: clearForm }
+      );
+    }
+    list.refetch();
+  };
+
+  const handleSelect = (channel: any) => {
+    setSelectedChannelUrl(channel.channelUrl);
+    setName(channel.name || "");
+    setCoverUrl(channel.coverUrl || "");
+    setIsPublic(channel.isPublic);
+    setIsDistinct(channel.isDistinct);
+    setUserIds(channel.members?.map((m: any) => m.userId) || []);
   };
 
   return (
@@ -83,31 +111,80 @@ export default function ChannelGroupCatalogPage() {
             </div>
           </div>
 
-          <Button onClick={handleCreate}>Create Channel Group</Button>
+          <div className="flex gap-2 flex-wrap">
+            <Button onClick={handleSubmit}>
+              {selectedChannelUrl ? "Save Changes" : "Create Channel Group"}
+            </Button>
+            {selectedChannelUrl && (
+              <Button variant="ghost" onClick={clearForm}>
+                Cancel
+              </Button>
+            )}
+          </div>
         </CardContent>
       </Card>
 
       {list.data?.channels?.length > 0 && (
         <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-1">
-          {list.data.channels?.map((channel: any) => (
-            <Card key={channel.id} className="p-4">
+          {list.data.channels.map((channel: any) => (
+            <Card
+              key={channel.channelUrl}
+              className={`p-4 cursor-pointer ${
+                selectedChannelUrl === channel.channelUrl
+                  ? "ring-2 ring-blue-500"
+                  : ""
+              }`}
+              onClick={() => handleSelect(channel)}
+            >
               <div className="space-y-1">
                 <div className="font-semibold text-lg">{channel.name}</div>
-                <div className="font-semibold text-lg">{truncate(channel.channelUrl)}</div>
+                <div className="font-semibold text-sm text-gray-700">
+                  {truncate(channel.channelUrl)}
+                </div>
                 <div className="text-sm text-gray-500">{channel.id}</div>
                 <div className="text-sm text-gray-500">
                   Members: {channel.memberCount || 0}
                 </div>
                 <div className="text-xs">
                   {channel.isPublic ? "Public" : "Private"} /{" "}
-                  {channel.isDistinct ? "Distinct" : "Shared"}/{" "}
-                  {channel.isAccessCodeRequired ? "Access Code Required" : "No Access Code Required"}
+                  {channel.isDistinct ? "Distinct" : "Shared"} /{" "}
+                  {channel.isAccessCodeRequired
+                    ? "Access Code Required"
+                    : "No Access Code"}
                 </div>
+              </div>
+              <div className="mt-4 flex gap-2 flex-wrap">
+                <Button size="sm" onClick={() => handleSelect(channel)}>
+                  Edit
+                </Button>
+                <Button
+                  size="sm"
+                  variant="destructive"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    remove.mutate(channel.channelUrl, { onSuccess: list.refetch });
+                  }}
+                >
+                  Delete
+                </Button>
               </div>
             </Card>
           ))}
         </div>
       )}
+
+      <div className="flex justify-between pt-4">
+        <Button variant="ghost" onClick={prevPage} disabled={!pageToken}>
+          First Page
+        </Button>
+        <Button
+          variant="outline"
+          onClick={nextPage}
+          disabled={!list.data?.next}
+        >
+          Next Page
+        </Button>
+      </div>
     </div>
   );
 }
