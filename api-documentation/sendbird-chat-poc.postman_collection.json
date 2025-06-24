@@ -1,0 +1,1097 @@
+{
+	"info": {
+		"_postman_id": "5fd445c5-9eed-4cd8-aeb7-d67866570cba",
+		"name": "sendbird-chat-poc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33232103"
+	},
+	"item": [
+		{
+			"name": "channel group",
+			"item": [
+				{
+					"name": "create channel",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test_channel1\",\n    \"userIds\": [\n        \"088d99e1-5a2c-41eb-9154-195e0b178df1\",\n        \"7dfd6748-4c3c-424f-b7f7-5120c8f9ea9a\"\n    ],\n    \"coverUrl\": \"https://i.pravatar.cc/150?img=2\",\n    \"isPublic\": true,\n    \"isDistinct\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/channels",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"channels"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"test_channel1\",\n    \"userIds\": [\n        \"088d99e1-5a2c-41eb-9154-195e0b178df1\",\n        \"7dfd6748-4c3c-424f-b7f7-5120c8f9ea9a\"\n    ],\n    \"coverUrl\": \"https://i.pravatar.cc/150?img=2\",\n    \"isPublic\": true,\n    \"isDistinct\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/channels",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"channels"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1598"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"63e-dyUdhCfA/SGiqgcELyUniiz453o\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jun 2025 07:31:23 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"channelUrl\": \"sendbird_group_channel_621792684_75b06309927244028b4775165160a252839aa930\",\n    \"coverUrl\": \"https://i.pravatar.cc/150?img=2\",\n    \"createdAt\": 1750577483,\n    \"createdBy\": null,\n    \"customType\": \"\",\n    \"data\": \"\",\n    \"disappearingMessage\": {\n        \"messageSurvivalSeconds\": -1,\n        \"isTriggeredByMessageRead\": false\n    },\n    \"freeze\": false,\n    \"ignoreProfanityFilter\": false,\n    \"isAccessCodeRequired\": false,\n    \"isBroadcast\": false,\n    \"isCreated\": true,\n    \"isDiscoverable\": true,\n    \"isDistinct\": false,\n    \"isEphemeral\": false,\n    \"isPublic\": true,\n    \"isSuper\": false,\n    \"joinedMemberCount\": 2,\n    \"lastMessage\": null,\n    \"maxLengthMessage\": 5000,\n    \"memberCount\": 2,\n    \"members\": [\n        {\n            \"isActive\": true,\n            \"isMuted\": false,\n            \"lastSeenAt\": -1,\n            \"nickname\": \"user_1\",\n            \"profileUrl\": \"https://i.pravatar.cc/150?img=3\",\n            \"requireAuthForProfileImage\": false,\n            \"metadata\": {},\n            \"isOnline\": false,\n            \"mutedEndAt\": -1,\n            \"mutedDescription\": \"\",\n            \"role\": \"\",\n            \"state\": \"joined\",\n            \"userId\": \"088d99e1-5a2c-41eb-9154-195e0b178df1\"\n        },\n        {\n            \"isActive\": true,\n            \"isMuted\": false,\n            \"lastSeenAt\": -1,\n            \"nickname\": \"user_2\",\n            \"profileUrl\": \"https://i.pravatar.cc/150?img=3\",\n            \"requireAuthForProfileImage\": false,\n            \"metadata\": {},\n            \"isOnline\": false,\n            \"mutedEndAt\": -1,\n            \"mutedDescription\": \"\",\n            \"role\": \"\",\n            \"state\": \"joined\",\n            \"userId\": \"7dfd6748-4c3c-424f-b7f7-5120c8f9ea9a\"\n        }\n    ],\n    \"messageSurvivalSeconds\": -1,\n    \"name\": \"test_channel1\",\n    \"operators\": [],\n    \"smsFallback\": {\n        \"waitSeconds\": -1,\n        \"excludeUserIds\": []\n    },\n    \"unreadMentionCount\": 0,\n    \"unreadMessageCount\": 0,\n    \"channel\": {\n        \"channelUrl\": \"sendbird_group_channel_621792684_75b06309927244028b4775165160a252839aa930\",\n        \"name\": \"test_channel1\",\n        \"coverUrl\": \"https://i.pravatar.cc/150?img=2\",\n        \"data\": \"\",\n        \"createdAt\": 1750577483,\n        \"customType\": \"\",\n        \"maxLengthMessage\": 5000,\n        \"memberCount\": 2\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "update channel",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test_channel1_change\",\n    \"coverUrl\": \"https://i.pravatar.cc/150?img=2\",\n    \"isPublic\": true,\n    \"isDistinct\": false,\n    \"data\": {}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/channels/:url",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"channels",
+								":url"
+							],
+							"variable": [
+								{
+									"key": "url",
+									"value": "sendbird_group_channel_621792684_75b06309927244028b4775165160a252839aa930"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "update channel",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"test_channel1_change\",\n    \"coverUrl\": \"https://i.pravatar.cc/150?img=2\",\n    \"isPublic\": true,\n    \"isDistinct\": false,\n    \"data\": {},\n    \"channelUrl\": \"sendbird_group_channel_621792684_75b06309927244028b4775165160a252839aa930\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/channels/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"channels",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1585"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"631-pEy05Uaifq2WCHbr8EqPSbys2jY\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jun 2025 10:07:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"channelUrl\": \"sendbird_group_channel_621792684_75b06309927244028b4775165160a252839aa930\",\n    \"coverUrl\": \"https://i.pravatar.cc/150?img=2\",\n    \"createdAt\": 1750577483,\n    \"createdBy\": null,\n    \"customType\": \"\",\n    \"data\": \"{}\",\n    \"disappearingMessage\": {\n        \"messageSurvivalSeconds\": -1,\n        \"isTriggeredByMessageRead\": false\n    },\n    \"freeze\": false,\n    \"ignoreProfanityFilter\": false,\n    \"isAccessCodeRequired\": false,\n    \"isBroadcast\": false,\n    \"isDiscoverable\": true,\n    \"isDistinct\": false,\n    \"isEphemeral\": false,\n    \"isPublic\": true,\n    \"isSuper\": false,\n    \"joinedMemberCount\": 2,\n    \"lastMessage\": null,\n    \"maxLengthMessage\": 5000,\n    \"memberCount\": 2,\n    \"members\": [\n        {\n            \"isActive\": true,\n            \"isMuted\": false,\n            \"lastSeenAt\": -1,\n            \"nickname\": \"user_1\",\n            \"profileUrl\": \"https://i.pravatar.cc/150?img=3\",\n            \"requireAuthForProfileImage\": false,\n            \"metadata\": {},\n            \"isOnline\": false,\n            \"mutedEndAt\": -1,\n            \"mutedDescription\": \"\",\n            \"role\": \"\",\n            \"state\": \"joined\",\n            \"userId\": \"088d99e1-5a2c-41eb-9154-195e0b178df1\"\n        },\n        {\n            \"isActive\": true,\n            \"isMuted\": false,\n            \"lastSeenAt\": -1,\n            \"nickname\": \"user_2\",\n            \"profileUrl\": \"https://i.pravatar.cc/150?img=3\",\n            \"requireAuthForProfileImage\": false,\n            \"metadata\": {},\n            \"isOnline\": false,\n            \"mutedEndAt\": -1,\n            \"mutedDescription\": \"\",\n            \"role\": \"\",\n            \"state\": \"joined\",\n            \"userId\": \"7dfd6748-4c3c-424f-b7f7-5120c8f9ea9a\"\n        }\n    ],\n    \"messageSurvivalSeconds\": -1,\n    \"name\": \"test_channel1\",\n    \"operators\": [],\n    \"smsFallback\": {\n        \"waitSeconds\": -1,\n        \"excludeUserIds\": []\n    },\n    \"unreadMentionCount\": 0,\n    \"unreadMessageCount\": 0,\n    \"channel\": {\n        \"channelUrl\": \"sendbird_group_channel_621792684_75b06309927244028b4775165160a252839aa930\",\n        \"name\": \"test_channel1\",\n        \"coverUrl\": \"https://i.pravatar.cc/150?img=2\",\n        \"data\": \"{}\",\n        \"createdAt\": 1750577483,\n        \"customType\": \"\",\n        \"maxLengthMessage\": 5000,\n        \"memberCount\": 2\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "list channels",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/channels?limit=10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"channels"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "token",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "showMember",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "isPublic",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "isDistinct",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "isSuper",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "createdAfter",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "createdBefore",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "showEmpty",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/channels?limit=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"channels"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "10"
+										},
+										{
+											"key": "token",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "showMember",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "isPublic",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "isDistinct",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "isSuper",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "createdAfter",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "createdBefore",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "showEmpty",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2200"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"898-ddYlJhZDqz3UzfEj0DNyqGdIn6A\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jun 2025 10:18:33 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"channels\": [\n        {\n            \"channelUrl\": \"sendbird_group_channel_621792684_75b06309927244028b4775165160a252839aa930\",\n            \"coverUrl\": \"https://i.pravatar.cc/150?img=2\",\n            \"createdAt\": 1750577483,\n            \"createdBy\": null,\n            \"customType\": \"\",\n            \"data\": \"{}\",\n            \"disappearingMessage\": {\n                \"messageSurvivalSeconds\": -1,\n                \"isTriggeredByMessageRead\": false\n            },\n            \"freeze\": false,\n            \"ignoreProfanityFilter\": false,\n            \"invitedAt\": 0,\n            \"inviter\": null,\n            \"isAccessCodeRequired\": false,\n            \"isBroadcast\": false,\n            \"isDiscoverable\": true,\n            \"isDistinct\": false,\n            \"isEphemeral\": false,\n            \"isPublic\": true,\n            \"isSuper\": false,\n            \"joinedMemberCount\": 2,\n            \"lastMessage\": null,\n            \"maxLengthMessage\": 5000,\n            \"memberCount\": 2,\n            \"messageSurvivalSeconds\": -1,\n            \"name\": \"test_channel1\",\n            \"smsFallback\": {\n                \"waitSeconds\": -1,\n                \"excludeUserIds\": []\n            },\n            \"unreadMentionCount\": 0,\n            \"unreadMessageCount\": 0,\n            \"channel\": {\n                \"channelUrl\": \"sendbird_group_channel_621792684_75b06309927244028b4775165160a252839aa930\",\n                \"name\": \"test_channel1\",\n                \"coverUrl\": \"https://i.pravatar.cc/150?img=2\",\n                \"data\": \"{}\",\n                \"createdAt\": 1750577483,\n                \"customType\": \"\",\n                \"maxLengthMessage\": 5000,\n                \"memberCount\": 2\n            }\n        },\n        {\n            \"channelUrl\": \"sendbird_group_channel_618671338_b379fd969fc3af6d46181a9b0efeffadb720e1a9\",\n            \"coverUrl\": \"https://static.sendbird.com/sample/cover/cover_11.jpg\",\n            \"createdAt\": 1750328815,\n            \"createdBy\": {\n                \"requireAuthForProfileImage\": false,\n                \"nickname\": \"test\",\n                \"userId\": \"111-111-111-111_d88387a4\",\n                \"profileUrl\": \"https://i.pravatar.cc/300\"\n            },\n            \"customType\": \"\",\n            \"data\": \"\",\n            \"disappearingMessage\": {\n                \"messageSurvivalSeconds\": -1,\n                \"isTriggeredByMessageRead\": false\n            },\n            \"freeze\": false,\n            \"ignoreProfanityFilter\": false,\n            \"invitedAt\": 0,\n            \"inviter\": null,\n            \"isAccessCodeRequired\": false,\n            \"isBroadcast\": false,\n            \"isDiscoverable\": false,\n            \"isDistinct\": false,\n            \"isEphemeral\": false,\n            \"isPublic\": false,\n            \"isSuper\": false,\n            \"joinedMemberCount\": 0,\n            \"lastMessage\": null,\n            \"maxLengthMessage\": 5000,\n            \"memberCount\": 0,\n            \"messageSurvivalSeconds\": -1,\n            \"name\": \"testChannel\",\n            \"smsFallback\": {\n                \"waitSeconds\": -1,\n                \"excludeUserIds\": []\n            },\n            \"unreadMentionCount\": 0,\n            \"unreadMessageCount\": 0,\n            \"channel\": {\n                \"channelUrl\": \"sendbird_group_channel_618671338_b379fd969fc3af6d46181a9b0efeffadb720e1a9\",\n                \"name\": \"testChannel\",\n                \"coverUrl\": \"https://static.sendbird.com/sample/cover/cover_11.jpg\",\n                \"data\": \"\",\n                \"createdAt\": 1750328815,\n                \"customType\": \"\",\n                \"maxLengthMessage\": 5000,\n                \"memberCount\": 0\n            }\n        }\n    ],\n    \"next\": \"\",\n    \"ts\": 1750587513690\n}"
+						}
+					]
+				},
+				{
+					"name": "show channel details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/channels/:url?showMember=true",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"channels",
+								":url"
+							],
+							"query": [
+								{
+									"key": "showMember",
+									"value": "true"
+								},
+								{
+									"key": "showDeliveryReceipt",
+									"value": "false",
+									"disabled": true
+								},
+								{
+									"key": "showReadReceipt",
+									"value": "false",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "url",
+									"value": "sendbird_group_channel_621792684_75b06309927244028b4775165160a252839aa930"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/channels/:url?showMember=true",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"channels",
+										":url"
+									],
+									"query": [
+										{
+											"key": "showMember",
+											"value": "true"
+										},
+										{
+											"key": "showDeliveryReceipt",
+											"value": "false",
+											"disabled": true
+										},
+										{
+											"key": "showReadReceipt",
+											"value": "false",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "url",
+											"value": "sendbird_group_channel_621792684_75b06309927244028b4775165160a252839aa930"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1599"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"63f-lKanX48BHYgQyavZxIb6uDiRXpA\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jun 2025 10:39:19 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"channelUrl\": \"sendbird_group_channel_621792684_75b06309927244028b4775165160a252839aa930\",\n    \"coverUrl\": \"https://i.pravatar.cc/150?img=2\",\n    \"createdAt\": 1750577483,\n    \"createdBy\": null,\n    \"customType\": \"\",\n    \"data\": \"{}\",\n    \"disappearingMessage\": {\n        \"messageSurvivalSeconds\": -1,\n        \"isTriggeredByMessageRead\": false\n    },\n    \"freeze\": false,\n    \"ignoreProfanityFilter\": false,\n    \"isAccessCodeRequired\": false,\n    \"isBroadcast\": false,\n    \"isDiscoverable\": true,\n    \"isDistinct\": false,\n    \"isEphemeral\": false,\n    \"isPublic\": true,\n    \"isSuper\": false,\n    \"joinedMemberCount\": 2,\n    \"lastMessage\": null,\n    \"maxLengthMessage\": 5000,\n    \"memberCount\": 2,\n    \"members\": [\n        {\n            \"isActive\": true,\n            \"isMuted\": false,\n            \"lastSeenAt\": -1,\n            \"nickname\": \"user_1\",\n            \"profileUrl\": \"https://i.pravatar.cc/150?img=3\",\n            \"requireAuthForProfileImage\": false,\n            \"metadata\": {},\n            \"isOnline\": false,\n            \"mutedEndAt\": -1,\n            \"mutedDescription\": \"\",\n            \"role\": \"\",\n            \"state\": \"joined\",\n            \"userId\": \"088d99e1-5a2c-41eb-9154-195e0b178df1\"\n        },\n        {\n            \"isActive\": true,\n            \"isMuted\": false,\n            \"lastSeenAt\": -1,\n            \"nickname\": \"user_2\",\n            \"profileUrl\": \"https://i.pravatar.cc/150?img=3\",\n            \"requireAuthForProfileImage\": false,\n            \"metadata\": {},\n            \"isOnline\": false,\n            \"mutedEndAt\": -1,\n            \"mutedDescription\": \"\",\n            \"role\": \"\",\n            \"state\": \"joined\",\n            \"userId\": \"7dfd6748-4c3c-424f-b7f7-5120c8f9ea9a\"\n        }\n    ],\n    \"messageSurvivalSeconds\": -1,\n    \"name\": \"test_channel1_change\",\n    \"operators\": [],\n    \"smsFallback\": {\n        \"waitSeconds\": -1,\n        \"excludeUserIds\": []\n    },\n    \"unreadMentionCount\": 0,\n    \"unreadMessageCount\": 0,\n    \"channel\": {\n        \"channelUrl\": \"sendbird_group_channel_621792684_75b06309927244028b4775165160a252839aa930\",\n        \"name\": \"test_channel1_change\",\n        \"coverUrl\": \"https://i.pravatar.cc/150?img=2\",\n        \"data\": \"{}\",\n        \"createdAt\": 1750577483,\n        \"customType\": \"\",\n        \"maxLengthMessage\": 5000,\n        \"memberCount\": 2\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "chat user",
+			"item": [
+				{
+					"name": "add user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nickname\": \"diab2\",\n    \"profileUrl\": \"https://i.pravatar.cc/150?img=3\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "user [diab]",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nickname\": \"diab\",\n    \"profileUrl\": \"https://i.pravatar.cc/150?img=3\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "325"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"145-OlhgElrCdBzTufbY45OAV2RCSaQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jun 2025 06:25:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"requireAuthForProfileImage\": false,\n    \"isOnline\": false,\n    \"userId\": \"234091be-c0a3-45bc-a3df-002f3e416b9b\",\n    \"accessToken\": \"\",\n    \"hasEverLoggedIn\": false,\n    \"isActive\": true,\n    \"lastSeenAt\": -1,\n    \"nickname\": \"diab\",\n    \"discoveryKeys\": [],\n    \"sessionTokens\": [],\n    \"profileUrl\": \"https://i.pravatar.cc/150?img=3\",\n    \"phoneNumber\": \"\",\n    \"isCreated\": true,\n    \"metadata\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "create user token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:id/token",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":id",
+								"token"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "234091be-c0a3-45bc-a3df-002f3e416b9b"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "auth token from sendbird",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/users/:id/token",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										":id",
+										"token"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "234091be-c0a3-45bc-a3df-002f3e416b9b"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "167"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"a7-CWiL6DCNbZ6pN2u+ZWjyjjkrSr8\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jun 2025 06:32:36 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1Ijo2MjE3Nzg5MDAsInYiOjEsImUiOjE3NTExNzg3NTZ9.LlSUS3vY39Qt9NctU267VE9owVbDW9Mho1oF5tDoAlI\",\n    \"expiresAt\": 1751178756000\n}"
+						}
+					]
+				},
+				{
+					"name": "list users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/users?limit=3&nickname=diab",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "3"
+										},
+										{
+											"key": "nickname",
+											"value": "diab"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1066"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"42a-fFXbz81duz7Saon9dfUsgyzBgxM\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jun 2025 06:47:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"users\": [\n        {\n            \"requireAuthForProfileImage\": false,\n            \"isOnline\": false,\n            \"userId\": \"21a532bc-6ee5-4f2b-853c-be66d0e0c0aa\",\n            \"hasEverLoggedIn\": false,\n            \"isActive\": true,\n            \"lastSeenAt\": -1,\n            \"nickname\": \"diab2\",\n            \"discoveryKeys\": [],\n            \"preferredLanguages\": [],\n            \"profileUrl\": \"https://i.pravatar.cc/150?img=3\",\n            \"createdAt\": 1750574142,\n            \"phoneNumber\": \"\",\n            \"isHideMeFromFriends\": false,\n            \"metadata\": {}\n        },\n        {\n            \"requireAuthForProfileImage\": false,\n            \"isOnline\": false,\n            \"userId\": \"234091be-c0a3-45bc-a3df-002f3e416b9b\",\n            \"hasEverLoggedIn\": false,\n            \"isActive\": true,\n            \"lastSeenAt\": -1,\n            \"nickname\": \"diab\",\n            \"discoveryKeys\": [],\n            \"preferredLanguages\": [],\n            \"profileUrl\": \"https://i.pravatar.cc/150?img=3\",\n            \"createdAt\": 1750573501,\n            \"phoneNumber\": \"\",\n            \"isHideMeFromFriends\": false,\n            \"metadata\": {}\n        },\n        {\n            \"requireAuthForProfileImage\": false,\n            \"isOnline\": false,\n            \"userId\": \"adb2f251-6b6b-4ac5-b181-839cb73b1d31\",\n            \"hasEverLoggedIn\": false,\n            \"isActive\": true,\n            \"lastSeenAt\": -1,\n            \"nickname\": \"diab\",\n            \"discoveryKeys\": [],\n            \"preferredLanguages\": [],\n            \"profileUrl\": \"https://i.pravatar.cc/150?img=3\",\n            \"createdAt\": 1750573476,\n            \"phoneNumber\": \"\",\n            \"isHideMeFromFriends\": false,\n            \"metadata\": {}\n        }\n    ],\n    \"next\": \"\"\n}"
+						},
+						{
+							"name": "new page token",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/users?limit=2&nickname=diab&token=ZXARRFJUSlJMf0VYXlVbFmt3EURTVks6",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "2"
+										},
+										{
+											"key": "nickname",
+											"value": "diab"
+										},
+										{
+											"key": "token",
+											"value": "ZXARRFJUSlJMf0VYXlVbFmt3EURTVks6"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "369"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"171-HFXC+PRmDFJhd8XS1pjOAyXS09c\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jun 2025 06:48:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"users\": [\n        {\n            \"requireAuthForProfileImage\": false,\n            \"isOnline\": false,\n            \"userId\": \"adb2f251-6b6b-4ac5-b181-839cb73b1d31\",\n            \"hasEverLoggedIn\": false,\n            \"isActive\": true,\n            \"lastSeenAt\": -1,\n            \"nickname\": \"diab\",\n            \"discoveryKeys\": [],\n            \"preferredLanguages\": [],\n            \"profileUrl\": \"https://i.pravatar.cc/150?img=3\",\n            \"createdAt\": 1750573476,\n            \"phoneNumber\": \"\",\n            \"isHideMeFromFriends\": false,\n            \"metadata\": {}\n        }\n    ],\n    \"next\": \"\"\n}"
+						}
+					]
+				},
+				{
+					"name": "update user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"user 2\",\n    \"profileUrl\": \"https://i.pravatar.cc/150?img=3\",\n    \"isActive\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "234091be-c0a3-45bc-a3df-002f3e416b9b"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "update user",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"user 2\",\n    \"profileUrl\": \"https://i.pravatar.cc/150?img=3\",\n    \"isActive\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/:userId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										":userId"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "234091be-c0a3-45bc-a3df-002f3e416b9b"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "402"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"192-6H+khatpZEnrk/426oEAGjLBc80\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 22 Jun 2025 06:55:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"requireAuthForProfileImage\": false,\n    \"isOnline\": false,\n    \"userId\": \"234091be-c0a3-45bc-a3df-002f3e416b9b\",\n    \"accessToken\": \"\",\n    \"hasEverLoggedIn\": false,\n    \"isActive\": true,\n    \"lastSeenAt\": -1,\n    \"nickname\": \"diab\",\n    \"discoveryKeys\": [],\n    \"sessionTokens\": [],\n    \"preferredLanguages\": [],\n    \"profileUrl\": \"https://i.pravatar.cc/150?img=3\",\n    \"createdAt\": 1750573501,\n    \"locale\": \"\",\n    \"isHideMeFromFriends\": false,\n    \"isShadowBlocked\": false,\n    \"metadata\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "234091be-c0a3-45bc-a3df-002f3e416b9b"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nickName\": \"\",\n    \"profileUrl\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "channel group members",
+			"item": [
+				{
+					"name": "add members",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userIds\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/channels/:url/members",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"channels",
+								":url",
+								"members"
+							],
+							"variable": [
+								{
+									"key": "url",
+									"value": "sendbird_group_channel_621792684_75b06309927244028b4775165160a252839aa930"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete members",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/channels/:url/members",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"channels",
+								":url",
+								"members"
+							],
+							"variable": [
+								{
+									"key": "url",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list members",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/channels/:url/members",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"channels",
+								":url",
+								"members"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "token",
+									"value": null,
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "url",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{apiKey}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "x-api-key",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
