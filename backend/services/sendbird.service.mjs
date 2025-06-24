@@ -187,15 +187,30 @@ async function rejectInvitation(channelUrl, userId) {
 
 async function joinChannel(channelUrl, userId, accessCode = '') {
     const data = await gcApi.gcJoinChannel(apiToken, channelUrl, {
-        gcJoinChannelData: new SendbirdPlatformSdk.GcJoinChannelData(channelUrl, userId, accessCode),
+        userId,
+        channelUrl,
+        accessCode
     });
     return data;
 }
 
-async function leaveChannel(channelUrl, userIds = []) {
+async function leaveChannel(channelUrl, payload = {
+    userIds: [],
+    shouldLeaveAll: false
+}) {
     const data = await gcApi.gcLeaveChannel(apiToken, channelUrl, {
-        gcLeaveChannelData: new SendbirdPlatformSdk.GcLeaveChannelData(userIds),
+        channelUrl,
+        userIds: payload.userIds,
+        shouldLeaveAll: payload.shouldLeaveAll,
     });
+    return data;
+}
+
+async function listChannelMembers(channelUrl, payload = {
+    token,
+    limit
+}) {
+    const data = await gcApi.gcListMembers(apiToken, channelUrl, payload.token, payload.limit);
     return data;
 }
 
@@ -218,5 +233,6 @@ export {
     joinChannel,
     leaveChannel,
     viewChannel,
-    removeChannel
+    removeChannel,
+    listChannelMembers
 };

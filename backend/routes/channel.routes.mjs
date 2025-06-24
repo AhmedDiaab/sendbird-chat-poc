@@ -10,7 +10,10 @@ import {
     accept,
     reject,
     view,
-    remove
+    remove,
+    listMembers,
+    addMembers,
+    deleteMembers
 } from '../controllers/channel.controller.mjs';
 
 const router = Router();
@@ -31,4 +34,8 @@ router.post('/:url/leave', leave);   // POST /channels/:url/leave
 router.put('/:url/accept', accept);  // PUT  /channels/:url/accept
 router.put('/:url/reject', reject);  // PUT  /channels/:url/reject
 
+/* Membership management */
+router.get('/:url/members', listMembers);     // GET /channels/:url/members
+router.post('/:url/members', addMembers);     // POST /channels/:url/members
+router.delete('/:url/members', deleteMembers);     // DELETE /channels/:url/members
 export default router;

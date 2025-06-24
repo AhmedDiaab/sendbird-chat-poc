@@ -1,4 +1,4 @@
-import { createChannel, listChannels, removeChannel, updateChannel, viewChannel } from '../services/sendbird.service.mjs';
+import { createChannel, joinChannel, leaveChannel, listChannelMembers, listChannels, removeChannel, updateChannel, viewChannel } from '../services/sendbird.service.mjs';
 
 /* CREATE ----------------------------------------------------------- */
 export const create = async (req, res, next) => {
@@ -114,3 +114,42 @@ export const reject = async (req, res, next) => {
         next(err);
     }
 };
+
+/* Membership Management */
+export const addMembers = async (req, res, next) => { // when add deactivated user, it gives me not found error
+    try {
+        const { userIds } = req.body;
+        const channelId = req.params.url;
+        const joinedUsersPromises = userIds.map((userId) => joinChannel(channelId, userId));
+        await Promise.all(joinedUsersPromises);
+        res.sendStatus(204);
+    } catch (err) {
+        next(err);
+    }
+}
+
+export const listMembers = async (req, res, next) => {
+    try {
+        const list = await listChannelMembers(req.params.url, {
+            limit: req.query.limit,
+            token: req.query.token
+        });
+        res.json(list);
+    } catch (err) {
+        next(err);
+    }
+}
+
+export const deleteMembers = async (req, res, next) => {
+    try {
+        const { userIds, shouldLeaveAll } = req.body;
+        const channelId = req.params.url;
+        await leaveChannel(channelId, {
+            userIds,
+            shouldLeaveAll: shouldLeaveAll
+        });
+        res.sendStatus(204);
+    } catch (err) {
+        next(err);
+    }
+}
