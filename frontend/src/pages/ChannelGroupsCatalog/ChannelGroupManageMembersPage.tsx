@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { useChannelMembers } from "@/hooks/channel-groups/useChannelMembers.hook";
 import { useAddChannelMembers } from "@/hooks/channel-groups/useAddChannelMembers.hook";
 import { useRemoveChannelMembers } from "@/hooks/channel-groups/useRemoveChannelMembers.hook";
-import { useListUsers } from "@/hooks/users/useListUsers.hook";
 import { useState } from "react";
 import { UserMultiSelect } from "@/components/custom-ui/UserMultiSelect";
 
@@ -13,7 +12,6 @@ export default function ChannelGroupManageMembersPage() {
   const members = useChannelMembers(url!);
   const add = useAddChannelMembers();
   const remove = useRemoveChannelMembers();
-  const allUsers = useListUsers({ token: null });
 
   const [selectedToAdd, setSelectedToAdd] = useState<string[]>([]);
   const [selectedToRemove, setSelectedToRemove] = useState<string[]>([]);
