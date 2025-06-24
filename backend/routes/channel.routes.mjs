@@ -9,7 +9,8 @@ import {
     leave,
     accept,
     reject,
-    view
+    view,
+    remove
 } from '../controllers/channel.controller.mjs';
 
 const router = Router();
@@ -20,6 +21,7 @@ router.use(withAuth);
 router.post('/', create);            // POST /channels
 router.get('/', list);               // GET  /channels
 router.put('/:url', update);         // PUT  /channels/:url
+router.delete('/:url', remove);         // PUT  /channels/:url
 router.get ('/:url', view);          // GET  /channels/:url
 
 /* Membership */

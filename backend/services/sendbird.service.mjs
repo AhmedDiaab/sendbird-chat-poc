@@ -126,6 +126,11 @@ async function updateChannel(channelUrl, payload = {
     return data;
 }
 
+async function removeChannel(channelUrl) {
+    const data = await gcApi.gcDeleteChannelByUrl(apiToken, channelUrl);
+    return data;
+}
+
 async function listChannels({
     limit = 20,
     token,
@@ -212,5 +217,6 @@ export {
     rejectInvitation,
     joinChannel,
     leaveChannel,
-    viewChannel
+    viewChannel,
+    removeChannel
 };

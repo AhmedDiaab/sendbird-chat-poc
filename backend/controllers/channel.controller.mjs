@@ -1,4 +1,4 @@
-import { createChannel, listChannels, updateChannel, viewChannel } from '../services/sendbird.service.mjs';
+import { createChannel, listChannels, removeChannel, updateChannel, viewChannel } from '../services/sendbird.service.mjs';
 
 /* CREATE ----------------------------------------------------------- */
 export const create = async (req, res, next) => {
@@ -29,13 +29,23 @@ export const list = async (req, res, next) => {
 /* UPDATE ----------------------------------------------------------- */
 export const update = async (req, res, next) => {
     try {
-        const channel = await updateChannel(req.params.channelUrl, {
+        const channel = await updateChannel(req.params.url, {
             coverUrl: req.body.coverUrl,
             isDistinct: req.body.isDistinct,
             isPublic: req.body.isPublic,
             name: req.body.name,
         });
         res.json(channel);
+    } catch (err) {
+        next(err);
+    }
+};
+
+/* DELETE ----------------------------------------------------------- */
+export const remove = async (req, res, next) => {
+    try {
+        await removeChannel(req.params.url);
+        res.status(204).end();
     } catch (err) {
         next(err);
     }
