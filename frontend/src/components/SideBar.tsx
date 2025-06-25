@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 const navItems = [
   { path: "/users", label: "Users" },
   { path: "/channel-groups", label: "Channel Groups" },
+  { path: "/chat", label: "Chat" },
 ];
 
 export default function Sidebar() {

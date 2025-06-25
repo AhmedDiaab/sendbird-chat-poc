@@ -5,6 +5,7 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import MainLayout from "@/layouts/MainLayout";
 import ChannelGroupCatalogPage from "@/pages/ChannelGroupsCatalog/ChannelGroupsCatalogPage";
 import ChannelGroupManageMembersPage from "@/pages/ChannelGroupsCatalog/ChannelGroupManageMembersPage";
+import ChatPage from "@/pages/Chat/ChatPage";
 
 export default function AppRoutes() {
   return (
@@ -24,6 +25,7 @@ export default function AppRoutes() {
           path="/channel-groups/:url/members"
           element={<ChannelGroupManageMembersPage />}
         />
+        <Route path="/chat" element={<ChatPage />} />
       </Route>
     </Routes>
   );
