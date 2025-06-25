@@ -38,6 +38,9 @@ A full-stack proof of concept (POC) for managing users, channel groups, and thei
 ### ✅ Manage Members (After Creation)
 - Add/remove users to/from channel groups via dedicated page
 
+### ✅ Chat (With ability to choose user before chat)
+- Add/remove users to/from channel groups via dedicated page
+
 ---
 
 ## 🚀 Getting Started
