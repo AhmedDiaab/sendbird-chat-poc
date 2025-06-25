@@ -26,6 +26,9 @@ importers:
       '@sendbird/chat':
         specifier: ^4.19.2
         version: 4.19.2
+      '@sendbird/uikit-react':
+        specifier: ^3.16.10
+        version: 3.16.10(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@tailwindcss/postcss':
         specifier: ^4.1.10
         version: 4.1.10
@@ -191,6 +194,10 @@ packages:
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
+
+  '@babel/runtime@7.27.6':
+    resolution: {integrity: sha512-vbavdySgbTTrmFE+EsiqUTzlOr5bzlnJtUv9PynGCAKvfQqjIXbvFdumPM/GxMDfyuGMJaJAU6TO4zc1Jf1i8Q==}
+    engines: {node: '>=6.9.0'}
 
   '@babel/template@7.27.2':
     resolution: {integrity: sha512-LPDZ85aEJyYSd18/DkjNh4/y1ntkE5KwUHWTiqgRxruuZL2F1yuHligVHLvcHY2vMHXttKFpJn6LwfI7cw7ODw==}
@@ -845,6 +852,30 @@ packages:
       react-native-mmkv:
         optional: true
 
+  '@sendbird/react-uikit-message-template-view@0.0.8':
+    resolution: {integrity: sha512-tNJGp8rJOsk0MjKTmF1JtDrwaLnKuzKjQnA66TthCQer6kCeVcP2xG2FeBYzR/x72xKidvJVMtegTKDl7i82RA==}
+    peerDependencies:
+      '@sendbird/chat': '>=4.3.0 <5'
+      react: '>=16.8.6'
+      react-dom: '>=16.8.6'
+
+  '@sendbird/uikit-message-template@0.0.8':
+    resolution: {integrity: sha512-0tG+sEcftiHExYmkenMPT10RmSOyC5u0a+nhSG7w2V7XCXqyaNirk+emoCFPNqUlbnnR1g/fjEj3Ag7Kk6hmqA==}
+    peerDependencies:
+      react: '>=16.8.6'
+
+  '@sendbird/uikit-react@3.16.10':
+    resolution: {integrity: sha512-HaVBk8dNiPc8SHcMa5COaGe/8mrBAsWrrM2ENweFyCDamsvMSNbLVHIMcHY/IX+4phJve5byhWt2lfQk3ZyopA==}
+    peerDependencies:
+      react: ^16.8.6 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.8.6 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  '@sendbird/uikit-tools@0.0.8':
+    resolution: {integrity: sha512-k/Ry9pTFl6BVDtJ7YGNvJdI7C+Bwu7BwdbxU9lgACpgbx/9zAVOesaFfsJk0S9r9QV5b/7+zLR/QTJXVfuITgw==}
+    peerDependencies:
+      '@sendbird/chat': '>=4.10.5 <5'
+      react: '>=16.8.6'
+
   '@tailwindcss/node@4.1.10':
     resolution: {integrity: sha512-2ACf1znY5fpRBwRhMgj9ZXvb2XZW8qs+oTfotJ2C5xR0/WNL7UHZ7zXl6s+rUqedL1mNi+0O+WQr5awGowS3PQ==}
 
@@ -974,6 +1005,9 @@ packages:
 
   '@types/react@19.1.8':
     resolution: {integrity: sha512-AwAfQ2Wa5bCx9WP8nZL2uMZWod7J7/JSplxbTmBQ5ms6QpqNYm672H0Vu9ZVKVngQ+ii4R/byguVEUZQyeg44g==}
+
+  '@types/trusted-types@2.0.7':
+    resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
 
   '@typescript-eslint/eslint-plugin@8.34.1':
     resolution: {integrity: sha512-STXcN6ebF6li4PxwNeFnqF8/2BNDvBupf2OPx2yWNzr6mKNGF7q49VM00Pz5FaomJyqvbXpY6PhO+T9w139YEQ==}
@@ -1152,8 +1186,15 @@ packages:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
     engines: {node: '>= 8'}
 
+  css-vars-ponyfill@2.4.9:
+    resolution: {integrity: sha512-aZyLue5bdiGVNCiCclNjo123D8I7kyoYNUaAvz+H1JalX1ye4Ilz7jNRRH5YbM+dYD6ucejiydGwk7lol/GCXQ==}
+
   csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
+
+  date-fns@2.30.0:
+    resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
+    engines: {node: '>=0.11'}
 
   debug@4.4.1:
     resolution: {integrity: sha512-KcKCqiftBJcZr++7ykoDIEwSa3XWowTfNPo92BYxjXiyYEVrUQh2aLyhxBCwww+heortUFxEJYcRzosstTEBYQ==}
@@ -1177,6 +1218,9 @@ packages:
 
   detect-node-es@1.1.0:
     resolution: {integrity: sha512-ypdmJU/TbBby2Dxibuv7ZLW3Bs1QEmM7nHjEANfohJLvE0XVujisn1qPJcZxg+qDucsr+bP6fLD1rPS3AhJ7EQ==}
+
+  dompurify@3.2.6:
+    resolution: {integrity: sha512-/2GogDQlohXPZe6D6NOgQvXLPSYBqIWMnZ8zzOhn09REE4eyAzb+Hed3jhoM9OkuaJ8P6ZGTTVWQKAi8ieIzfQ==}
 
   dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
@@ -1341,6 +1385,9 @@ packages:
   gensync@1.0.0-beta.2:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
     engines: {node: '>=6.9.0'}
+
+  get-css-data@2.1.1:
+    resolution: {integrity: sha512-JpMa/f5P4mDXKg6l5/2cHL5xNY77Jap7tHyduMa6BF0E2a7bQ6Tvaz2BIMjeVYZYLcmOZ5w2Ro0yVJEI41tMbw==}
 
   get-intrinsic@1.3.0:
     resolution: {integrity: sha512-9fSjSaos/fRIVIp+xSJlE6lfwhES7LNtKaCBIamHsjr2na1BiABJPo0mOjjz8GJDURarmCPGqaiVg5mfjb98CQ==}
@@ -2031,6 +2078,8 @@ snapshots:
       '@babel/core': 7.27.4
       '@babel/helper-plugin-utils': 7.27.1
 
+  '@babel/runtime@7.27.6': {}
+
   '@babel/template@7.27.2':
     dependencies:
       '@babel/code-frame': 7.27.1
@@ -2544,6 +2593,36 @@ snapshots:
 
   '@sendbird/chat@4.19.2': {}
 
+  '@sendbird/react-uikit-message-template-view@0.0.8(@sendbird/chat@4.19.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      '@sendbird/chat': 4.19.2
+      '@sendbird/uikit-message-template': 0.0.8(react@19.1.0)
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+
+  '@sendbird/uikit-message-template@0.0.8(react@19.1.0)':
+    dependencies:
+      react: 19.1.0
+
+  '@sendbird/uikit-react@3.16.10(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      '@sendbird/chat': 4.19.2
+      '@sendbird/react-uikit-message-template-view': 0.0.8(@sendbird/chat@4.19.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@sendbird/uikit-tools': 0.0.8(@sendbird/chat@4.19.2)(react@19.1.0)
+      css-vars-ponyfill: 2.4.9
+      date-fns: 2.30.0
+      dompurify: 3.2.6
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+    transitivePeerDependencies:
+      - '@react-native-async-storage/async-storage'
+      - react-native-mmkv
+
+  '@sendbird/uikit-tools@0.0.8(@sendbird/chat@4.19.2)(react@19.1.0)':
+    dependencies:
+      '@sendbird/chat': 4.19.2
+      react: 19.1.0
+
   '@tailwindcss/node@4.1.10':
     dependencies:
       '@ampproject/remapping': 2.3.0
@@ -2666,6 +2745,9 @@ snapshots:
   '@types/react@19.1.8':
     dependencies:
       csstype: 3.1.3
+
+  '@types/trusted-types@2.0.7':
+    optional: true
 
   '@typescript-eslint/eslint-plugin@8.34.1(@typescript-eslint/parser@8.34.1(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3)':
     dependencies:
@@ -2892,7 +2974,16 @@ snapshots:
       shebang-command: 2.0.0
       which: 2.0.2
 
+  css-vars-ponyfill@2.4.9:
+    dependencies:
+      balanced-match: 1.0.2
+      get-css-data: 2.1.1
+
   csstype@3.1.3: {}
+
+  date-fns@2.30.0:
+    dependencies:
+      '@babel/runtime': 7.27.6
 
   debug@4.4.1:
     dependencies:
@@ -2905,6 +2996,10 @@ snapshots:
   detect-libc@2.0.4: {}
 
   detect-node-es@1.1.0: {}
+
+  dompurify@3.2.6:
+    optionalDependencies:
+      '@types/trusted-types': 2.0.7
 
   dunder-proto@1.0.1:
     dependencies:
@@ -3103,6 +3198,8 @@ snapshots:
   function-bind@1.1.2: {}
 
   gensync@1.0.0-beta.2: {}
+
+  get-css-data@2.1.1: {}
 
   get-intrinsic@1.3.0:
     dependencies:
