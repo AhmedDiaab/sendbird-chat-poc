@@ -3,7 +3,7 @@ import { GroupChannelModule, type SendbirdGroupChat } from '@sendbird/chat/group
 
 let sendBird: SendbirdGroupChat | null = null;
 
-export async function initSendbird(userId: string, nickname: string) {
+export async function initSendbird(userId: string, nickname: string, token: string) {
     if (!sendBird) {
         sendBird = SendbirdChat.init({
             appId: import.meta.env.VITE_SENDBIRD_APP_ID,
@@ -14,7 +14,7 @@ export async function initSendbird(userId: string, nickname: string) {
     }
 
     if (!sendBird.currentUser) {
-        await sendBird.connect(userId);
+        await sendBird.connect(userId, token);
         await sendBird.updateCurrentUserInfo({ nickname });
     }
 

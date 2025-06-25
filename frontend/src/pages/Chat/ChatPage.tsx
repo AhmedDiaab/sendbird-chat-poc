@@ -5,14 +5,27 @@ import { ChannelList } from "@/components/custom-ui/chat/ChannelList";
 import { MessagePanel } from "@/components/custom-ui/chat/MessagePanel";
 import { initSendbird } from "@/lib/sendbird";
 import SendbirdChat from "@sendbird/chat";
+import { useGenerateToken } from "@/hooks/users/useGenerateToken.hook";
 
 export default function ChatPage() {
   const { currentUser } = useChatStore();
   const [sdk, setSdk] = useState<SendbirdChat | null>(null);
+  const generateToken = useGenerateToken();
 
   useEffect(() => {
     if (currentUser) {
-      initSendbird(currentUser.userId, currentUser.nickname).then(setSdk);
+      generateToken.mutate(currentUser.userId, {
+        onSuccess: (data) => {
+          initSendbird(
+            currentUser.userId,
+            currentUser.nickname,
+            data.token
+          ).then(setSdk);
+        },
+        onError: (err: any) => {
+          console.error("Failed to generate token: " + err.message);
+        },
+      });
     }
   }, [currentUser]);
 
