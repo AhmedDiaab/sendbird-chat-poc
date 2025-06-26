@@ -1,5 +1,6 @@
 import SendbirdPlatformSdk, { createConfiguration, CreateUserData, CreateUserTokenData, GroupChannelApi, ServerConfiguration, UserApi } from 'sendbird-platform-sdk-typescript';
 import { randomUUID } from 'crypto';
+import { withRetry } from '../utils/withRetry.util.mjs';
 
 /* ------------------------------------------------------------------ *
  * CONFIG
@@ -46,17 +47,17 @@ async function createUserToken(userId, expiresInSec = 60 * 60 * 24) {
         expires_at: Math.floor(Date.now() / 1000) + expiresInSec,
     });
 
-    const data = await userApi.createUserToken(apiToken, userId, body);
+    const data = await withRetry(() => userApi.createUserToken(apiToken, userId, body));
     return data;
 }
 
 async function updateUser(userId, params = {}) {
-    const data = await userApi.updateUserById(apiToken, userId, {
+    const data = await withRetry(() => userApi.updateUserById(apiToken, userId, {
         nickname: params.nickname,
         profileUrl: params.profileUrl,
         isActive: params.isActive,
         // sessionTokenExpiresAt,
-    });
+    }));
     return data;
 }
 
@@ -74,19 +75,19 @@ async function listUsers(query = {
     // apiToken: "{{API_TOKEN}}",
 
 }) {
-    const data = await userApi.listUsers(apiToken, query.token, query.limit, query.activeMode);
+    const data = await withRetry(() => userApi.listUsers(apiToken, query.token, query.limit, query.activeMode));
     return data;
 }
 
 async function viewUserById(userId) {
-    const data = await userApi.viewUserById(apiToken, userId);
+    const data = await withRetry(() => userApi.viewUserById(apiToken, userId));
     return data;
 }
 
 /** Delete a user permanently. */
 async function deleteUser(userId) {
     // 204 No-Content on success
-    await userApi.deleteUserById(apiToken, userId);
+    await withRetry(() => userApi.deleteUserById(apiToken, userId));
 }
 
 /* ------------------------------------------------------------------ *
@@ -99,13 +100,13 @@ async function createChannel(payload = {
     isPublic,
     isDistinct,
 }) {
-    const data = await gcApi.gcCreateChannel(apiToken, {
+    const data = await withRetry(() => gcApi.gcCreateChannel(apiToken, {
         name: payload.name,
         userIds: payload.userIds,
         coverUrl: payload.coverUrl,
         isPublic: payload.isPublic,
         isDistinct: payload.isDistinct,
-    });
+    }));
     return data;
 }
 
@@ -116,18 +117,18 @@ async function updateChannel(channelUrl, payload = {
     isDistinct,
 }) {
 
-    const data = await gcApi.gcUpdateChannelByUrl(apiToken, channelUrl, {
+    const data = await withRetry(() => gcApi.gcUpdateChannelByUrl(apiToken, channelUrl, {
         name: payload.name,
         coverUrl: payload.coverUrl,
         isPublic: payload.isPublic,
         isDistinct: payload.isDistinct,
         data: payload.data || {},
-    });
+    }));
     return data;
 }
 
 async function removeChannel(channelUrl) {
-    const data = await gcApi.gcDeleteChannelByUrl(apiToken, channelUrl);
+    const data = await withRetry(() => gcApi.gcDeleteChannelByUrl(apiToken, channelUrl));
     return data;
 }
 
@@ -142,7 +143,7 @@ async function listChannels({
     createdBefore,
     showEmpty
 } = {}) {
-    const data = await gcApi.gcListChannels(apiToken,
+    const data = await withRetry(() => gcApi.gcListChannels(apiToken,
         token,
         limit,
         isDistinct,
@@ -152,45 +153,45 @@ async function listChannels({
         createdBefore,
         showEmpty,
         showMember
-    );
+    ));
     return data;
 }
 
 /** View a single channel by URL. */
 async function viewChannel(channelUrl, { showMember = false, showDeliveryReceipt = false, showReadReceipt = false } = {}) {
-    const data = await gcApi.gcViewChannelByUrl(apiToken, channelUrl, showDeliveryReceipt, showReadReceipt, showMember);
+    const data = await withRetry(() => gcApi.gcViewChannelByUrl(apiToken, channelUrl, showDeliveryReceipt, showReadReceipt, showMember));
     return data;
 }
 
 
 /* ------------------  Membership ------------------ */
 async function inviteToChannel(channelUrl, userIds = []) {
-    const data = await gcApi.gcInviteAsMembers(apiToken, channelUrl, {
+    const data = await withRetry(() => gcApi.gcInviteAsMembers(apiToken, channelUrl, {
         gcInviteAsMembersData: new SendbirdPlatformSdk.GcInviteAsMembersData(userIds),
-    });
+    }));
     return data;
 }
 
 async function acceptInvitation(channelUrl, userId) {
-    const data = await gcApi.gcAcceptInvitation(apiToken, channelUrl, {
+    const data = await withRetry(() => gcApi.gcAcceptInvitation(apiToken, channelUrl, {
         gcAcceptInvitationData: new SendbirdPlatformSdk.GcAcceptInvitationData(channelUrl, userId),
-    });
+    }));
     return data;
 }
 
 async function rejectInvitation(channelUrl, userId) {
-    const data = await gcApi.gcDeclineInvitation(apiToken, channelUrl, {
+    const data = await withRetry(() => gcApi.gcDeclineInvitation(apiToken, channelUrl, {
         gcDeclineInvitationData: new SendbirdPlatformSdk.GcDeclineInvitationData(channelUrl, userId),
-    });
+    }));
     return data;
 }
 
 async function joinChannel(channelUrl, userId, accessCode = '') {
-    const data = await gcApi.gcJoinChannel(apiToken, channelUrl, {
+    const data = await withRetry(() => gcApi.gcJoinChannel(apiToken, channelUrl, {
         userId,
         channelUrl,
         accessCode
-    });
+    }));
     return data;
 }
 
@@ -198,11 +199,11 @@ async function leaveChannel(channelUrl, payload = {
     userIds: [],
     shouldLeaveAll: false
 }) {
-    const data = await gcApi.gcLeaveChannel(apiToken, channelUrl, {
+    const data = await withRetry(() => gcApi.gcLeaveChannel(apiToken, channelUrl, {
         channelUrl,
         userIds: payload.userIds,
         shouldLeaveAll: payload.shouldLeaveAll,
-    });
+    }));
     return data;
 }
 
@@ -210,7 +211,7 @@ async function listChannelMembers(channelUrl, payload = {
     token,
     limit
 }) {
-    const data = await gcApi.gcListMembers(apiToken, channelUrl, payload.token, payload.limit);
+    const data = await withRetry(() => gcApi.gcListMembers(apiToken, channelUrl, payload.token, payload.limit));
     return data;
 }
 

@@ -120,13 +120,17 @@ export const addMembers = async (req, res, next) => { // when add deactivated us
     try {
         const { userIds } = req.body;
         const channelId = req.params.url;
-        const joinedUsersPromises = userIds.map((userId) => joinChannel(channelId, userId));
-        await Promise.all(joinedUsersPromises);
+
+        await chunkedExecute(userIds, 4, (userId) =>
+            joinChannel(channelId, userId)
+        );
+
         res.sendStatus(204);
     } catch (err) {
         next(err);
     }
-}
+};
+
 
 export const listMembers = async (req, res, next) => {
     try {
