@@ -119,10 +119,10 @@ export const reject = async (req, res, next) => {
 export const addMembers = async (req, res, next) => { // when add deactivated user, it gives me not found error
     try {
         const { userIds } = req.body;
-        const channelId = req.params.url;
+        const channelUrl = req.params.url;
 
         await chunkedExecute(userIds, 4, (userId) =>
-            joinChannel(channelId, userId)
+            joinChannel(channelUrl, userId)
         );
 
         res.sendStatus(204);
@@ -147,8 +147,8 @@ export const listMembers = async (req, res, next) => {
 export const deleteMembers = async (req, res, next) => {
     try {
         const { userIds, shouldLeaveAll } = req.body;
-        const channelId = req.params.url;
-        await leaveChannel(channelId, {
+        const channelUrl = req.params.url;
+        await leaveChannel(channelUrl, {
             userIds,
             shouldLeaveAll: shouldLeaveAll
         });
