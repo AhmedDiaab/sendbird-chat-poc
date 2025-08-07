@@ -10,10 +10,10 @@ type ChannelGroupInput = {
     isDistinct: boolean;
 };
 
-export function useCreateChannelGroup() {
+export function useCreateOpenChannel() {
     return useMutation({
         mutationFn: async (data: ChannelGroupInput) => {
-            const response = await api.post("/channels", data);
+            const response = await api.post("/open-channels", data);
             return response.data;
         },
     });

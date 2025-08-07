@@ -1,10 +1,10 @@
-import { createChannel, joinChannel, leaveChannel, listChannelMembers, listChannels, removeChannel, updateChannel, viewChannel } from '../services/sendbird.service.mjs';
+import { createOpenChannel, joinChannel, leaveChannel, listChannelMembers, listOpenChannels, removeChannel, updateOpenChannel, viewOpenChannel } from '../services/sendbird.service.mjs';
 import { chunkedExecute } from '../utils/withChunkExecution.util.mjs';
 
 /* CREATE ----------------------------------------------------------- */
 export const create = async (req, res, next) => {
     try {
-        const channel = await createChannel({
+        const channel = await createOpenChannel({
             name: req.body.name, // limit: 191 chars
             userIds: req.body.userIds,
             coverUrl: req.body.coverUrl,
@@ -21,7 +21,7 @@ export const create = async (req, res, next) => {
 /* LIST ------------------------------------------------------------- */
 export const list = async (req, res, next) => {
     try {
-        const list = await listChannels(req.query);
+        const list = await listOpenChannels(req.query);
         res.json(list);
     } catch (err) {
         next(err);
@@ -31,7 +31,7 @@ export const list = async (req, res, next) => {
 /* UPDATE ----------------------------------------------------------- */
 export const update = async (req, res, next) => {
     try {
-        const channel = await updateChannel(req.params.url, {
+        const channel = await updateOpenChannel(req.params.url, {
             coverUrl: req.body.coverUrl,
             isDistinct: req.body.isDistinct,
             isPublic: req.body.isPublic,
@@ -56,7 +56,7 @@ export const remove = async (req, res, next) => {
 /* VIEW (single) ---------------------------------------------------- */
 export const view = async (req, res, next) => {
     try {
-        const channel = await viewChannel(req.params.url, {
+        const channel = await viewOpenChannel(req.params.url, {
             showMember: req.query.showMember,
             showDeliveryReceipt: req.query.showDeliveryReceipt,
             showReadReceipt: req.query.showReadReceipt,

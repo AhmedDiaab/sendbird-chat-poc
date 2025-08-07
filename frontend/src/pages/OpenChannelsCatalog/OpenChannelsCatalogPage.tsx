@@ -4,15 +4,15 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { useCreateChannelGroup } from "@/hooks/channel-groups/useCreateChannelGroup.hook";
-import { useListChannelGroups } from "@/hooks/channel-groups/useListChannelGroups.hook";
-import { useDeleteChannelGroup } from "@/hooks/channel-groups/useDeleteChannelGroup.hook";
+import { useCreateOpenChannel } from "@/hooks/open-channels/useCreateOpenChannel.hook";
+import { useListOpenChannel } from "@/hooks/open-channels/useListOpenChannel.hook";
+import { useDeleteOpenChannel } from "@/hooks/open-channels/useDeleteOpenChannel.hook";
+import { useUpdateOpenChannel } from "@/hooks/open-channels/useUpdateOpenChannel.hook";
 import { UserMultiSelect } from "@/components/custom-ui/UserMultiSelect";
 import { truncate } from "@/utils/truncate.util";
-import { useUpdateChannelGroup } from "@/hooks/channel-groups/useUpdateChannelGroup.hook";
 import { useNavigate } from "react-router-dom";
 
-export default function ChannelGroupCatalogPage() {
+export default function OpenChannelsCatalogPage() {
   const [name, setName] = useState("");
   const [organization, setOrganization] = useState("");
   const [coverUrl, setCoverUrl] = useState("");
@@ -24,10 +24,10 @@ export default function ChannelGroupCatalogPage() {
   );
 
   const [pageToken, setPageToken] = useState<string | null>(null);
-  const list = useListChannelGroups({ token: pageToken });
-  const create = useCreateChannelGroup();
-  const update = useUpdateChannelGroup();
-  const remove = useDeleteChannelGroup();
+  const list = useListOpenChannel({ token: pageToken });
+  const create = useCreateOpenChannel();
+  const update = useUpdateOpenChannel();
+  const remove = useDeleteOpenChannel();
 
   const nextPage = () => list.data?.next && setPageToken(list.data.next);
   const prevPage = () => setPageToken(null);
@@ -176,7 +176,7 @@ export default function ChannelGroupCatalogPage() {
                   size="sm"
                   onClick={(e) => {
                     e.stopPropagation();
-                    navigate(`/channel-groups/${channel.channelUrl}/members`);
+                    navigate(`/open-channels/${channel.channelUrl}/members`);
                   }}
                 >
                   Manage Members

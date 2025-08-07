@@ -3,6 +3,7 @@ import express from 'express';
 
 import usersRouter from './routes/user.routes.mjs';
 import chRouter from './routes/channel.routes.mjs';
+import openChannelRouter from './routes/open-channel.routes.mjs';
 import authRouter from './routes/auth.routes.mjs';
 import cors from 'cors';
 
@@ -15,6 +16,7 @@ app.use(cors());
 app.use('/auth', authRouter);     // public
 app.use('/users', usersRouter);   // protected by x-api-key
 app.use('/channels', chRouter);   // protected by x-api-key
+app.use('/open-channels', openChannelRouter);   // protected by x-api-key
 
 // Basic error handler
 app.use((err, _req, res, _next) => {

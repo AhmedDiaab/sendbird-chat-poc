@@ -1,4 +1,4 @@
-import SendbirdPlatformSdk, { createConfiguration, CreateUserData, CreateUserTokenData, GroupChannelApi, ServerConfiguration, UserApi } from 'sendbird-platform-sdk-typescript';
+import SendbirdPlatformSdk, { createConfiguration, CreateUserData, CreateUserTokenData, GroupChannelApi, OpenChannelApi, ServerConfiguration, UserApi } from 'sendbird-platform-sdk-typescript';
 import { randomUUID } from 'crypto';
 import { withRetry } from '../utils/withRetry.util.mjs';
 
@@ -22,6 +22,8 @@ const configuration = createConfiguration({
 
 const userApi = new UserApi(configuration);
 const gcApi = new GroupChannelApi(configuration);
+const ocApi = new OpenChannelApi(configuration);
+
 
 
 /* ------------------------------------------------------------------ *
@@ -99,6 +101,7 @@ async function createChannel(payload = {
     name,
     isPublic,
     isDistinct,
+    organization
 }) {
     const data = await withRetry(() => gcApi.gcCreateChannel(apiToken, {
         name: payload.name,
@@ -106,6 +109,7 @@ async function createChannel(payload = {
         coverUrl: payload.coverUrl,
         isPublic: payload.isPublic,
         isDistinct: payload.isDistinct,
+        data: JSON.stringify({ organization, type: 'tma' })
     }));
     return data;
 }
@@ -153,7 +157,7 @@ async function listChannels({
         createdBefore,
         showEmpty,
         showMember,
-        
+
     ));
     return data;
 }
@@ -217,6 +221,60 @@ async function listChannelMembers(channelUrl, payload = {
 }
 
 /* ------------------------------------------------------------------ *
+ * Open Channels
+ * ------------------------------------------------------------------ */
+async function createOpenChannel(payload = {
+    name,
+    coverUrl,
+    customType,
+    operatorUserIds,
+    organization
+}) {
+    return withRetry(() => ocApi.ocCreateChannel(apiToken, {
+        name: payload.name,
+        coverUrl: payload.coverUrl,
+        customType: payload.customType ?? 'open',
+        operatorIds: payload.operatorUserIds,
+        data: JSON.stringify({ organization: payload.organization, type: 'tma' })
+    }));
+}
+
+async function updateOpenChannel(channelUrl, payload = {
+    name,
+    coverUrl,
+    customType,
+    operatorUserIds,
+    organization
+}) {
+    return withRetry(() => ocApi.ocUpdateChannelByUrl(apiToken, channelUrl, {
+        name: payload.name,
+        coverUrl: payload.coverUrl,
+        customType: payload.customType ?? 'open',
+        operatorIds: payload.operatorUserIds,
+        data: JSON.stringify({ organization: payload.organization, type: 'tma', ...(payload.data || {}) })
+    }));
+}
+
+async function deleteOpenChannel(channelUrl) {
+    return withRetry(() => ocApi.ocDeleteChannelByUrl(apiToken, channelUrl));
+}
+
+async function listOpenChannels({
+    token,
+    limit = 20,
+    customType,
+    showFrozen = false,
+    showEmpty = false
+} = {}) {
+    return withRetry(() => ocApi.ocListChannels(apiToken, token, limit, customType, showFrozen, showEmpty));
+}
+
+async function viewOpenChannel(channelUrl) {
+    return withRetry(() => ocApi.ocViewChannelByUrl(apiToken, channelUrl));
+}
+
+
+/* ------------------------------------------------------------------ *
  * EXPORTS (ESM)
  * ------------------------------------------------------------------ */
 export {
@@ -236,5 +294,10 @@ export {
     leaveChannel,
     viewChannel,
     removeChannel,
-    listChannelMembers
+    listChannelMembers,
+    createOpenChannel,
+    updateOpenChannel,
+    deleteOpenChannel,
+    listOpenChannels,
+    viewOpenChannel,
 };
