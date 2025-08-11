@@ -1,4 +1,4 @@
-import { createChannel, joinChannel, leaveChannel, listChannelMembers, listChannels, removeChannel, updateChannel, viewChannel } from '../services/sendbird.service.mjs';
+import { createChannel, inviteToChannel, joinChannel, leaveChannel, listChannelMembers, listChannels, removeChannel, updateChannel, viewChannel } from '../services/sendbird.service.mjs';
 import { chunkedExecute } from '../utils/withChunkExecution.util.mjs';
 
 /* CREATE ----------------------------------------------------------- */
