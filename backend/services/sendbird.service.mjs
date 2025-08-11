@@ -230,12 +230,13 @@ async function createOpenChannel(payload = {
     operatorUserIds,
     organization
 }) {
-    return withRetry(() => ocApi.ocCreateChannel(apiToken, {
+    return withRetry(() => ocApi.ocCreateChannel(apiToken,{
         name: payload.name,
         coverUrl: payload.coverUrl,
-        customType: payload.customType ?? 'open',
+        customType: payload.customType,
         operatorIds: payload.operatorUserIds,
-        data: JSON.stringify({ organization: payload.organization, type: 'tma' })
+        isEphemeral: true,
+        isDynamicPartitioned: true,
     }));
 }
 
@@ -263,10 +264,10 @@ async function listOpenChannels({
     token,
     limit = 20,
     customType,
+    nameContains = undefined,
     showFrozen = false,
-    showEmpty = false
 } = {}) {
-    return withRetry(() => ocApi.ocListChannels(apiToken, token, limit, customType, showFrozen, showEmpty));
+    return withRetry(() => ocApi.ocListChannels(apiToken, token, limit,customType ,nameContains, undefined, showFrozen));
 }
 
 async function viewOpenChannel(channelUrl) {

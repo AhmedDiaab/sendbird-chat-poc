@@ -3,7 +3,7 @@ import api from "@/lib/api";
 
 export function useListOpenChannel({ token }: { token: string | null }) {
     return useQuery({
-        queryKey: ["open-channels", token],
+        queryKey: ["openChannels", token],
         queryFn: async () => {
             const { data } = await api.get("/open-channels", {
                 params: {

@@ -91,7 +91,7 @@ export default function OpenChannelsCatalogPage() {
 
           <Input
             placeholder="Group Organization"
-            value={name}
+            value={organization}
             onChange={(e) => setOrganization(e.target.value)}
           />
 
