@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function OpenChannelsCatalogPage() {
   const [name, setName] = useState("");
-  const [organization, setOrganization] = useState("");
+  const [customType, setCustomType] = useState("");
   const [coverUrl, setCoverUrl] = useState("");
   const [isPublic, setIsPublic] = useState(true);
   const [isDistinct, setIsDistinct] = useState(false);
@@ -35,12 +35,13 @@ export default function OpenChannelsCatalogPage() {
   const navigate = useNavigate();
 
   const clearForm = () => {
-    setName("");
-    setCoverUrl("");
-    setIsPublic(true);
-    setIsDistinct(false);
-    setUserIds([]);
-    setSelectedChannelUrl(null);
+    // setName("");
+    // setCoverUrl("");
+    // setCustomType("");
+    // setIsPublic(true);
+    // setIsDistinct(false);
+    // setUserIds([]);
+    // setSelectedChannelUrl(null);
     list.refetch();
   };
 
@@ -50,7 +51,7 @@ export default function OpenChannelsCatalogPage() {
         {
           channelUrl: selectedChannelUrl,
           coverUrl,
-          organization,
+          customType,
           isDistinct,
           isPublic,
           name,
@@ -61,7 +62,7 @@ export default function OpenChannelsCatalogPage() {
       );
     } else {
       create.mutate(
-        { name, organization ,userIds, coverUrl, isPublic, isDistinct },
+        { name, customType ,userIds, coverUrl, isPublic, isDistinct },
         { onSuccess: clearForm }
       );
     }
@@ -69,12 +70,14 @@ export default function OpenChannelsCatalogPage() {
   };
 
   const handleSelect = (channel: any) => {
+    console.log(channel)
     setSelectedChannelUrl(channel.channelUrl);
     setName(channel.name || "");
+    setCustomType(channel.customType || "");
     setCoverUrl(channel.coverUrl || "");
     setIsPublic(channel.isPublic);
     setIsDistinct(channel.isDistinct);
-    setUserIds(channel.members?.map((m: any) => m.userId) || []);
+    setUserIds(channel.operators?.map((m: any) => m.userId) || []);
   };
 
   return (
@@ -90,9 +93,9 @@ export default function OpenChannelsCatalogPage() {
           />
 
           <Input
-            placeholder="Group Organization"
-            value={organization}
-            onChange={(e) => setOrganization(e.target.value)}
+            placeholder="Custom type"
+            value={customType}
+            onChange={(e) => setCustomType(e.target.value)}
           />
 
           <Input
@@ -157,7 +160,7 @@ export default function OpenChannelsCatalogPage() {
                   Members: {channel.memberCount || 0}
                 </div>
                 <div className="text-sm text-gray-500">
-                  Organization: {channel.memberCount || 0}
+                  Custom Type: {channel.customType || ''}
                 </div>
                 <div className="text-xs">
                   {channel.isPublic ? "Public" : "Private"} /{" "}

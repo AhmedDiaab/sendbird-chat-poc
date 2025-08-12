@@ -4,7 +4,7 @@ import api from "@/lib/api";
 interface UpdateChannelGroupPayload {
     channelUrl: string;
     name?: string;
-    organization: string;
+    customType: string;
     coverUrl?: string;
     userIds?: string[];
     isPublic?: boolean;

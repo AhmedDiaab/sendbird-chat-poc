@@ -3,10 +3,10 @@ import api from "@/lib/api";
 
 export function useOpenChannelMembers(channelUrl: string) {
     return useQuery({
-        queryKey: ["open-channel-members", channelUrl],
+        queryKey: ["openChannelsMembers", channelUrl],
         queryFn: async () => {
             const { data } = await api.get(`/open-channels/${channelUrl}/members`);
-            return data.members;
+            return data.operators;
         },
         enabled: !!channelUrl,
     });

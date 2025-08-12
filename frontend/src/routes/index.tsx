@@ -7,6 +7,7 @@ import ChannelGroupCatalogPage from "@/pages/ChannelGroupsCatalog/ChannelGroupsC
 import ChannelGroupManageMembersPage from "@/pages/ChannelGroupsCatalog/ChannelGroupManageMembersPage";
 import ChatPage from "@/pages/Chat/ChatPage";
 import OpenChannelsCatalogPage from "../pages/OpenChannelsCatalog/OpenChannelsCatalogPage";
+import OpenChannelManageMembersPage from "@/pages/OpenChannelsCatalog/OpenChannelManageMembersPage";
 
 export default function AppRoutes() {
   return (
@@ -22,10 +23,14 @@ export default function AppRoutes() {
       >
         <Route path="users" element={<UserCatalogPage />} />
         <Route path="channel-groups" element={<ChannelGroupCatalogPage />} />
-        <Route path="open-channels" element={<OpenChannelsCatalogPage />} />
         <Route
           path="/channel-groups/:url/members"
           element={<ChannelGroupManageMembersPage />}
+        />
+        <Route path="open-channels" element={<OpenChannelsCatalogPage />} />
+        <Route
+          path="/open-channels/:url/members"
+          element={<OpenChannelManageMembersPage />}
         />
         <Route path="/chat" element={<ChatPage />} />
       </Route>

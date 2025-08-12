@@ -227,8 +227,7 @@ async function createOpenChannel(payload = {
     name,
     coverUrl,
     customType,
-    operatorUserIds,
-    organization
+    operatorUserIds
 }) {
     return withRetry(() => ocApi.ocCreateChannel(apiToken,{
         name: payload.name,
@@ -244,15 +243,13 @@ async function updateOpenChannel(channelUrl, payload = {
     name,
     coverUrl,
     customType,
-    operatorUserIds,
-    organization
+    operatorUserIds
 }) {
     return withRetry(() => ocApi.ocUpdateChannelByUrl(apiToken, channelUrl, {
         name: payload.name,
         coverUrl: payload.coverUrl,
-        customType: payload.customType ?? 'open',
+        customType: payload.customType,
         operatorIds: payload.operatorUserIds,
-        data: JSON.stringify({ organization: payload.organization, type: 'tma', ...(payload.data || {}) })
     }));
 }
 
@@ -266,14 +263,26 @@ async function listOpenChannels({
     customType,
     nameContains = undefined,
     showFrozen = false,
+    
 } = {}) {
-    return withRetry(() => ocApi.ocListChannels(apiToken, token, limit,customType ,nameContains, undefined, showFrozen));
+    return withRetry(() => ocApi.ocListChannels(apiToken, token, limit,customType ,nameContains, undefined, showFrozen, true));
 }
 
 async function viewOpenChannel(channelUrl) {
     return withRetry(() => ocApi.ocViewChannelByUrl(apiToken, channelUrl));
 }
 
+/* ------------------------------------------------------------------ *
+ * Open Channels membership management (ESM)
+ * ------------------------------------------------------------------ */
+
+async function listOpenChannelMembers(channelUrl, payload = {
+    token,
+    limit
+}) {
+    const data = await withRetry(() => ocApi.ocListOperators(apiToken, channelUrl, payload.token, payload.limit));
+    return data;
+}
 
 /* ------------------------------------------------------------------ *
  * EXPORTS (ESM)
@@ -301,4 +310,5 @@ export {
     deleteOpenChannel,
     listOpenChannels,
     viewOpenChannel,
+    listOpenChannelMembers
 };

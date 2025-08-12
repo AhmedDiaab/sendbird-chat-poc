@@ -3,11 +3,11 @@ import api from "@/lib/api";
 
 type ChannelGroupInput = {
     name: string;
-    organization: string;
     userIds: string[];
     coverUrl: string;
     isPublic: boolean;
     isDistinct: boolean;
+    customType: string;
 };
 
 export function useCreateOpenChannel() {

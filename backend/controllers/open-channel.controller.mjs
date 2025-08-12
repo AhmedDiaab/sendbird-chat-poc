@@ -1,4 +1,4 @@
-import { createOpenChannel, joinChannel, leaveChannel, listChannelMembers, listOpenChannels, removeChannel, updateOpenChannel, viewOpenChannel } from '../services/sendbird.service.mjs';
+import { createOpenChannel, deleteOpenChannel, joinChannel, leaveChannel, listOpenChannelMembers, listOpenChannels, removeChannel, updateOpenChannel, viewOpenChannel } from '../services/sendbird.service.mjs';
 import { chunkedExecute } from '../utils/withChunkExecution.util.mjs';
 
 /* CREATE ----------------------------------------------------------- */
@@ -6,11 +6,11 @@ export const create = async (req, res, next) => {
     try {
         const channel = await createOpenChannel({
             name: req.body.name, // limit: 191 chars
-            userIds: req.body.userIds,
+            operatorUserIds: req.body.userIds,
             coverUrl: req.body.coverUrl,
             isPublic: req.body.isPublic,
             isDistinct: req.body.isDistinct,
-            organization: req.body.organization
+            customType: req.body.customType
         });
         res.status(201).json(channel);
     } catch (err) {
@@ -46,7 +46,7 @@ export const update = async (req, res, next) => {
 /* DELETE ----------------------------------------------------------- */
 export const remove = async (req, res, next) => {
     try {
-        await removeChannel(req.params.url);
+        await deleteOpenChannel(req.params.url);
         res.status(204).end();
     } catch (err) {
         next(err);
@@ -136,7 +136,7 @@ export const addMembers = async (req, res, next) => { // when add deactivated us
 
 export const listMembers = async (req, res, next) => {
     try {
-        const list = await listChannelMembers(req.params.url, {
+        const list = await listOpenChannelMembers(req.params.url, {
             limit: req.query.limit,
             token: req.query.token
         });
