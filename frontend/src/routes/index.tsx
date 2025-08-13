@@ -29,7 +29,7 @@ export default function AppRoutes() {
         />
         <Route path="open-channels" element={<OpenChannelsCatalogPage />} />
         <Route
-          path="/open-channels/:url/members"
+          path="/open-channels/:url/operators"
           element={<OpenChannelManageMembersPage />}
         />
         <Route path="/chat" element={<ChatPage />} />

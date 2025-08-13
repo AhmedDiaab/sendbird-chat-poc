@@ -11,9 +11,9 @@ import {
     reject,
     view,
     remove,
-    listMembers,
-    addMembers,
-    deleteMembers
+    listOpenChannelOperators,
+    deleteOperatorsOfOpenChannel,
+    addOperatorsToOpenChannel
 } from '../controllers/open-channel.controller.mjs';
 
 const router = Router();
@@ -35,7 +35,7 @@ router.put('/:url/accept', accept);  // PUT  /channels/:url/accept
 router.put('/:url/reject', reject);  // PUT  /channels/:url/reject
 
 /* Membership management */
-router.get('/:url/members', listMembers);     // GET /channels/:url/members
-router.post('/:url/members', addMembers);     // POST /channels/:url/members
-router.delete('/:url/members', deleteMembers);     // DELETE /channels/:url/members
+router.get('/:url/operators', listOpenChannelOperators);     // GET /channels/:url/members
+router.post('/:url/operators', addOperatorsToOpenChannel);     // POST /channels/:url/members
+router.delete('/:url/operators', deleteOperatorsOfOpenChannel);     // DELETE /channels/:url/members
 export default router;

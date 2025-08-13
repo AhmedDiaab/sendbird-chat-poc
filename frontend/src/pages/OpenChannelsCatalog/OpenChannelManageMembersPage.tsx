@@ -33,7 +33,7 @@ export default function OpenChannelManageMembersPage() {
     if (!url) return;
     if (!selectedToRemove?.length) {
       remove.mutate(
-        { channelUrl: url, userIds: [], shouldLeaveAll: true },
+        { channelUrl: url, userIds: [] },
         {
           onSuccess: () => {
             setSelectedToRemove([]);
@@ -43,7 +43,7 @@ export default function OpenChannelManageMembersPage() {
       );
     } else {
       remove.mutate(
-        { channelUrl: url, userIds: selectedToRemove, shouldLeaveAll: false },
+        { channelUrl: url, userIds: selectedToRemove },
         {
           onSuccess: () => {
             setSelectedToRemove([]);
@@ -56,21 +56,21 @@ export default function OpenChannelManageMembersPage() {
 
   return (
     <div className="p-6 space-y-4 max-w-3xl mx-auto">
-      <h2 className="text-lg font-bold">Manage Members of Channel: {url}</h2>
+      <h2 className="text-lg font-bold">Manage Operators of Channel: {url}</h2>
 
       <Card>
         <CardContent className="p-4 space-y-4">
-          <h4 className="font-semibold">Add Users</h4>
+          <h4 className="font-semibold">Add Operators</h4>
           <UserMultiSelect
             selected={selectedToAdd}
             setSelected={setSelectedToAdd}
             hiddenIds={members.data?.map((member: any) => member.userId)}
           />
           <Button onClick={handleAdd} disabled={add.isPending}>
-            Add Selected Users
+            Add Selected Operators
           </Button>
 
-          <h4 className="font-semibold pt-4">Current Members</h4>
+          <h4 className="font-semibold pt-4">Current Operators</h4>
           <div className="space-y-2">
             {members.data?.map((user: any) => (
               <div
@@ -106,7 +106,7 @@ export default function OpenChannelManageMembersPage() {
             onClick={handleRemove}
             disabled={remove.isPending}
           >
-            Remove Marked Users
+            Remove Marked Operators
           </Button>
 
           <Button
@@ -115,7 +115,7 @@ export default function OpenChannelManageMembersPage() {
             onClick={handleRemove}
             disabled={remove.isPending}
           >
-            Clear All Members
+            Clear All Operators
           </Button>
         </CardContent>
       </Card>

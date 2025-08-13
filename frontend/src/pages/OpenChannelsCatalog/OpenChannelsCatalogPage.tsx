@@ -82,7 +82,7 @@ export default function OpenChannelsCatalogPage() {
 
   return (
     <div className="p-6 space-y-4 max-w-3xl mx-auto">
-      <h2 className="text-lg font-bold">Channel Group Management</h2>
+      <h2 className="text-lg font-bold">Open Channel Management</h2>
 
       <Card>
         <CardContent className="space-y-2 p-4">
@@ -179,10 +179,10 @@ export default function OpenChannelsCatalogPage() {
                   size="sm"
                   onClick={(e) => {
                     e.stopPropagation();
-                    navigate(`/open-channels/${channel.channelUrl}/members`);
+                    navigate(`/open-channels/${channel.channelUrl}/operators`);
                   }}
                 >
-                  Manage Members
+                  Manage Operators
                 </Button>
                 <Button
                   size="sm"

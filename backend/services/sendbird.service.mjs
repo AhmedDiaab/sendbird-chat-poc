@@ -276,11 +276,29 @@ async function viewOpenChannel(channelUrl) {
  * Open Channels membership management (ESM)
  * ------------------------------------------------------------------ */
 
-async function listOpenChannelMembers(channelUrl, payload = {
+async function listOpenChannelOperators(channelUrl, payload = {
     token,
     limit
 }) {
     const data = await withRetry(() => ocApi.ocListOperators(apiToken, channelUrl, payload.token, payload.limit));
+    return data;
+}
+
+async function addOperatorsToOpenChannel(channelUrl, userIds) {
+    const data = await withRetry(() => ocApi.ocRegisterOperators(apiToken, channelUrl, {
+        channelUrl,
+        operatorIds: userIds
+    }));
+    return data;
+}
+
+async function removeOperatorsFromOpenChannel(channelUrl, payload = {
+    userIds: [],
+}) {
+    const data = await ocApi.ocUpdateChannelByUrl(apiToken, channelUrl, {
+        channelUrl,
+        operatorIds: [...payload.userIds],
+    });
     return data;
 }
 
@@ -310,5 +328,7 @@ export {
     deleteOpenChannel,
     listOpenChannels,
     viewOpenChannel,
-    listOpenChannelMembers
+    listOpenChannelOperators,
+    addOperatorsToOpenChannel,
+    removeOperatorsFromOpenChannel
 };
