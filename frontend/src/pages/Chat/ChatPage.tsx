@@ -4,7 +4,7 @@ import { UserSelector } from "@/components/custom-ui/chat/UserSelector";
 import { initSendbird } from "@/lib/sendbird";
 import SendbirdChat from "@sendbird/chat";
 import { useGenerateToken } from "@/hooks/users/useGenerateToken.hook";
-import { SendBirdUIPanel } from "@/components/custom-ui/chat/SendBirdUiPanel";
+import { SendBirdUIPanel } from "@/components/custom-ui/chat/SendbirdUIPanel";
 
 export default function ChatPage() {
   const { currentUser } = useChatStore();
