@@ -3,9 +3,10 @@ import { useChatStore } from "@/store/chatStore";
 import { initSendbird } from "@/lib/sendbird";
 import SendbirdChat from "@sendbird/chat";
 import { useGenerateToken } from "@/hooks/users/useGenerateToken.hook";
-import { SendBirdUIPanel } from "@/components/custom-ui/chat/SendbirdUIPanel";
+// import { SendBirdUIPanel } from "@/components/custom-ui/chat/SendbirdUIPanel";
+import { ChatUIPanel } from "@/components/custom-ui/open-chat/ChatUIPanel";
 
-export default function ChatPage() {
+export default function OpenChatPage() {
   const { currentUser } = useChatStore();
   const [sdk, setSdk] = useState<SendbirdChat | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
@@ -14,7 +15,7 @@ export default function ChatPage() {
 
   useEffect(() => {
     const init = async () => {
-      if (!currentUser || accessToken || generateToken.isPending) return;
+      if (!currentUser || accessToken || generateToken.isPending || !currentUser.userId) return;
 
       try {
         const data = await generateToken.mutateAsync(currentUser.userId);
@@ -39,7 +40,7 @@ export default function ChatPage() {
 
   return (
     <div className="grid grid-cols-12 h-screen">
-      <SendBirdUIPanel
+      <ChatUIPanel
         appId={import.meta.env.VITE_SENDBIRD_APP_ID}
         userId={currentUser.userId}
         accessToken={accessToken}

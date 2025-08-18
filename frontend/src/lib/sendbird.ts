@@ -1,16 +1,20 @@
 import SendbirdChat from '@sendbird/chat'
 import { GroupChannelModule, type SendbirdGroupChat } from '@sendbird/chat/groupChannel';
+import { OpenChannelModule, type SendbirdOpenChat } from '@sendbird/chat/openChannel';
 
-let sendBird: SendbirdGroupChat | null = null;
+type SendBirdLib = SendbirdGroupChat & SendbirdOpenChat;
+
+let sendBird: SendBirdLib | null = null;
 
 export async function initSendbird(userId: string, nickname: string, token: string) {
     if (!sendBird) {
         sendBird = SendbirdChat.init({
             appId: import.meta.env.VITE_SENDBIRD_APP_ID,
             modules: [
-                new GroupChannelModule()
+                new GroupChannelModule(),
+                new OpenChannelModule(),
             ],
-        }) as SendbirdGroupChat;
+        }) as SendBirdLib;
     }
 
     if (!sendBird.currentUser) {

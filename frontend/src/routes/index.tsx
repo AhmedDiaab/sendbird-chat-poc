@@ -6,6 +6,11 @@ import MainLayout from "@/layouts/MainLayout";
 import ChannelGroupCatalogPage from "@/pages/ChannelGroupsCatalog/ChannelGroupsCatalogPage";
 import ChannelGroupManageMembersPage from "@/pages/ChannelGroupsCatalog/ChannelGroupManageMembersPage";
 import ChatPage from "@/pages/Chat/ChatPage";
+import OpenChannelsCatalogPage from "../pages/OpenChannelsCatalog/OpenChannelsCatalogPage";
+import OpenChannelManageMembersPage from "@/pages/OpenChannelsCatalog/OpenChannelManageMembersPage";
+import OpenChatPage from "@/pages/Chat/OpenChatPage";
+import OpenChatMessagesPage from "@/pages/Chat/OpenChat/OpenChatMessagesPage";
+import GroupChatMessagesPage from "@/pages/Chat/OpenChat/GroupChatMessagesPage";
 
 export default function AppRoutes() {
   return (
@@ -25,7 +30,26 @@ export default function AppRoutes() {
           path="/channel-groups/:url/members"
           element={<ChannelGroupManageMembersPage />}
         />
+        <Route path="open-channels" element={<OpenChannelsCatalogPage />} />
+        <Route
+          path="/open-channels/:url/operators"
+          element={<OpenChannelManageMembersPage />}
+        />
         <Route path="/chat" element={<ChatPage />} />
+        <Route
+          path="/open-chat"
+          element={<OpenChatPage />}
+          children={[
+            <Route
+              path="/open-chat/group/:url"
+              element={<GroupChatMessagesPage />}
+            />,
+            <Route
+              path="/open-chat/open/:url"
+              element={<OpenChatMessagesPage />}
+            />,
+          ]}
+        />
       </Route>
     </Routes>
   );

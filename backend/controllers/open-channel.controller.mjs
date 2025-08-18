@@ -1,16 +1,15 @@
-import { createChannel, inviteToChannel, joinChannel, leaveChannel, listChannelMembers, listChannels, removeChannel, updateChannel, viewChannel } from '../services/sendbird.service.mjs';
-import { chunkedExecute } from '../utils/withChunkExecution.util.mjs';
+import { addOperatorsToOpenChannel as addOperators, createOpenChannel, deleteOpenChannel, joinChannel, leaveChannel, listOpenChannelOperators as listOperators, listOpenChannels, removeOperatorsFromOpenChannel, updateOpenChannel, viewOpenChannel } from '../services/sendbird.service.mjs';
 
 /* CREATE ----------------------------------------------------------- */
 export const create = async (req, res, next) => {
     try {
-        const channel = await createChannel({
+        const channel = await createOpenChannel({
             name: req.body.name, // limit: 191 chars
-            userIds: req.body.userIds,
+            operatorUserIds: req.body.userIds,
             coverUrl: req.body.coverUrl,
             isPublic: req.body.isPublic,
             isDistinct: req.body.isDistinct,
-            organization: req.body.organization
+            customType: req.body.customType
         });
         res.status(201).json(channel);
     } catch (err) {
@@ -21,7 +20,7 @@ export const create = async (req, res, next) => {
 /* LIST ------------------------------------------------------------- */
 export const list = async (req, res, next) => {
     try {
-        const list = await listChannels(req.query);
+        const list = await listOpenChannels(req.query);
         res.json(list);
     } catch (err) {
         next(err);
@@ -31,7 +30,7 @@ export const list = async (req, res, next) => {
 /* UPDATE ----------------------------------------------------------- */
 export const update = async (req, res, next) => {
     try {
-        const channel = await updateChannel(req.params.url, {
+        const channel = await updateOpenChannel(req.params.url, {
             coverUrl: req.body.coverUrl,
             isDistinct: req.body.isDistinct,
             isPublic: req.body.isPublic,
@@ -46,7 +45,7 @@ export const update = async (req, res, next) => {
 /* DELETE ----------------------------------------------------------- */
 export const remove = async (req, res, next) => {
     try {
-        await removeChannel(req.params.url);
+        await deleteOpenChannel(req.params.url);
         res.status(204).end();
     } catch (err) {
         next(err);
@@ -56,7 +55,7 @@ export const remove = async (req, res, next) => {
 /* VIEW (single) ---------------------------------------------------- */
 export const view = async (req, res, next) => {
     try {
-        const channel = await viewChannel(req.params.url, {
+        const channel = await viewOpenChannel(req.params.url, {
             showMember: req.query.showMember,
             showDeliveryReceipt: req.query.showDeliveryReceipt,
             showReadReceipt: req.query.showReadReceipt,
@@ -118,14 +117,12 @@ export const reject = async (req, res, next) => {
 };
 
 /* Membership Management */
-export const addMembers = async (req, res, next) => { // when add deactivated user, it gives me not found error
+export const addOperatorsToOpenChannel = async (req, res, next) => { // when add deactivated user, it gives me not found error
     try {
         const { userIds } = req.body;
         const channelUrl = req.params.url;
 
-        await chunkedExecute(userIds, 4, (userId) =>
-            joinChannel(channelUrl, userId)
-        );
+        await addOperators(channelUrl, userIds);
 
         res.sendStatus(204);
     } catch (err) {
@@ -134,9 +131,9 @@ export const addMembers = async (req, res, next) => { // when add deactivated us
 };
 
 
-export const listMembers = async (req, res, next) => {
+export const listOpenChannelOperators = async (req, res, next) => {
     try {
-        const list = await listChannelMembers(req.params.url, {
+        const list = await listOperators(req.params.url, {
             limit: req.query.limit,
             token: req.query.token
         });
@@ -146,13 +143,12 @@ export const listMembers = async (req, res, next) => {
     }
 }
 
-export const deleteMembers = async (req, res, next) => {
+export const deleteOperatorsOfOpenChannel = async (req, res, next) => {
     try {
-        const { userIds, shouldLeaveAll } = req.body;
+        const { userIds } = req.body;
         const channelUrl = req.params.url;
-        await leaveChannel(channelUrl, {
+        await removeOperatorsFromOpenChannel(channelUrl, {
             userIds,
-            shouldLeaveAll: shouldLeaveAll
         });
         res.sendStatus(204);
     } catch (err) {

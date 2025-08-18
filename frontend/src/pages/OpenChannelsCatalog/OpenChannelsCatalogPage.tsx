@@ -4,17 +4,17 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { useCreateChannelGroup } from "@/hooks/channel-groups/useCreateChannelGroup.hook";
-import { useListChannelGroups } from "@/hooks/channel-groups/useListChannelGroups.hook";
-import { useDeleteChannelGroup } from "@/hooks/channel-groups/useDeleteChannelGroup.hook";
+import { useCreateOpenChannel } from "@/hooks/open-channels/useCreateOpenChannel.hook";
+import { useListOpenChannel } from "@/hooks/open-channels/useListOpenChannel.hook";
+import { useDeleteOpenChannel } from "@/hooks/open-channels/useDeleteOpenChannel.hook";
+import { useUpdateOpenChannel } from "@/hooks/open-channels/useUpdateOpenChannel.hook";
 import { UserMultiSelect } from "@/components/custom-ui/UserMultiSelect";
 import { truncate } from "@/utils/truncate.util";
-import { useUpdateChannelGroup } from "@/hooks/channel-groups/useUpdateChannelGroup.hook";
 import { useNavigate } from "react-router-dom";
 
-export default function ChannelGroupCatalogPage() {
+export default function OpenChannelsCatalogPage() {
   const [name, setName] = useState("");
-  const [organization, setOrganization] = useState("");
+  const [customType, setCustomType] = useState("");
   const [coverUrl, setCoverUrl] = useState("");
   const [isPublic, setIsPublic] = useState(true);
   const [isDistinct, setIsDistinct] = useState(false);
@@ -24,10 +24,10 @@ export default function ChannelGroupCatalogPage() {
   );
 
   const [pageToken, setPageToken] = useState<string | null>(null);
-  const list = useListChannelGroups({ token: pageToken });
-  const create = useCreateChannelGroup();
-  const update = useUpdateChannelGroup();
-  const remove = useDeleteChannelGroup();
+  const list = useListOpenChannel({ token: pageToken });
+  const create = useCreateOpenChannel();
+  const update = useUpdateOpenChannel();
+  const remove = useDeleteOpenChannel();
 
   const nextPage = () => list.data?.next && setPageToken(list.data.next);
   const prevPage = () => setPageToken(null);
@@ -35,12 +35,13 @@ export default function ChannelGroupCatalogPage() {
   const navigate = useNavigate();
 
   const clearForm = () => {
-    setName("");
-    setCoverUrl("");
-    setIsPublic(true);
-    setIsDistinct(false);
-    setUserIds([]);
-    setSelectedChannelUrl(null);
+    // setName("");
+    // setCoverUrl("");
+    // setCustomType("");
+    // setIsPublic(true);
+    // setIsDistinct(false);
+    // setUserIds([]);
+    // setSelectedChannelUrl(null);
     list.refetch();
   };
 
@@ -50,7 +51,7 @@ export default function ChannelGroupCatalogPage() {
         {
           channelUrl: selectedChannelUrl,
           coverUrl,
-          organization,
+          customType,
           isDistinct,
           isPublic,
           name,
@@ -61,7 +62,7 @@ export default function ChannelGroupCatalogPage() {
       );
     } else {
       create.mutate(
-        { name, organization ,userIds, coverUrl, isPublic, isDistinct },
+        { name, customType ,userIds, coverUrl, isPublic, isDistinct },
         { onSuccess: clearForm }
       );
     }
@@ -69,17 +70,19 @@ export default function ChannelGroupCatalogPage() {
   };
 
   const handleSelect = (channel: any) => {
+    console.log(channel)
     setSelectedChannelUrl(channel.channelUrl);
     setName(channel.name || "");
+    setCustomType(channel.customType || "");
     setCoverUrl(channel.coverUrl || "");
     setIsPublic(channel.isPublic);
     setIsDistinct(channel.isDistinct);
-    setUserIds(channel.members?.map((m: any) => m.userId) || []);
+    setUserIds(channel.operators?.map((m: any) => m.userId) || []);
   };
 
   return (
     <div className="p-6 space-y-4 max-w-3xl mx-auto">
-      <h2 className="text-lg font-bold">Channel Group Management</h2>
+      <h2 className="text-lg font-bold">Open Channel Management</h2>
 
       <Card>
         <CardContent className="space-y-2 p-4">
@@ -90,9 +93,9 @@ export default function ChannelGroupCatalogPage() {
           />
 
           <Input
-            placeholder="Group Organization"
-            value={name}
-            onChange={(e) => setOrganization(e.target.value)}
+            placeholder="Custom type"
+            value={customType}
+            onChange={(e) => setCustomType(e.target.value)}
           />
 
           <Input
@@ -157,7 +160,7 @@ export default function ChannelGroupCatalogPage() {
                   Members: {channel.memberCount || 0}
                 </div>
                 <div className="text-sm text-gray-500">
-                  Organization: {channel.memberCount || 0}
+                  Custom Type: {channel.customType || ''}
                 </div>
                 <div className="text-xs">
                   {channel.isPublic ? "Public" : "Private"} /{" "}
@@ -176,10 +179,10 @@ export default function ChannelGroupCatalogPage() {
                   size="sm"
                   onClick={(e) => {
                     e.stopPropagation();
-                    navigate(`/channel-groups/${channel.channelUrl}/members`);
+                    navigate(`/open-channels/${channel.channelUrl}/operators`);
                   }}
                 >
-                  Manage Members
+                  Manage Operators
                 </Button>
                 <Button
                   size="sm"

@@ -17,7 +17,7 @@ export function SendBirdUIPanel({
   accessToken,
 }: SendBirdUIPanelProps) {
   return (
-    <div style={{ width: "83vw", height: "100vh" }}>
+    <div style={{ width: "80vw", height: "100vh" }}>
       <SendbirdApp
         appId={appId}
         userId={userId}
