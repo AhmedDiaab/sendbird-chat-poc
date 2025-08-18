@@ -3,6 +3,7 @@
 // import { App as SendbirdApp } from "@sendbird/uikit-react";
 import "@sendbird/uikit-react/dist/index.css";
 import ChatSidebar from "./layout/ChatSideBar";
+import { Outlet } from "react-router-dom";
 
 interface SendBirdUIPanelProps {
   appId: string;
@@ -18,10 +19,10 @@ export function ChatUIPanel({
 //   accessToken,
 }: SendBirdUIPanelProps) {
   return (
-    <div style={{ width: "80vw", height: "100vh" }}>
-      <ChatSidebar>
-
-      </ChatSidebar>
+    <div style={{ width: "80vw", height: "100vh",display: "flex", flexDirection: "row", columnGap: "1" }}>
+      <ChatSidebar />
+      <div className="m-1"></div>
+      <Outlet/>
     </div>
   );
 }

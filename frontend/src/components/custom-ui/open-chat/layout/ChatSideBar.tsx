@@ -1,48 +1,28 @@
-import { getSendbird } from "@/lib/sendbird";
-import type { OpenChannel } from "@sendbird/chat/openChannel";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import ChannelSection from "../components/ChannelSection";
+import { useChannels } from "@/hooks/channels/useChannels";
 
-export default function ChatSidebar({}) {
-  const [navItems, setNavItems] = useState([]);
-  
- // use chatgpt to enhance this
-  const sb = getSendbird();
-
-  const openChannelListQueryParams = {};
-
-  const openChannelsQuery = sb!.openChannel.createOpenChannelListQuery(
-    openChannelListQueryParams
-  );
-
-  if (openChannelsQuery.hasNext) {
-    openChannelsQuery.next().then(channels => {
-        console.log('once')
-        console.log(channels);
-    });
-  }
-
+export default function ChatSidebar() {
+  const [tab, setTab] = useState<"open" | "group">("open");
+  const { openChannels, groupChannels } = useChannels();
 
   return (
-    <div className="w-64 border-3 p-4 space-y-4">
-      <div className="text-xl font-bold">Groups</div>
-      <nav className="space-y-2">
-        {navItems.map(({ path, label }) => (
-          <NavLink
-            key={path}
-            to={path}
-            className={({ isActive }) =>
-              `block px-2 py-1 rounded ${
-                isActive
-                  ? "bg-primary text-white font-semibold"
-                  : "text-gray-300 hover:text-white"
-              }`
-            }
-          >
-            {label}
-          </NavLink>
-        ))}
-      </nav>
+    <div className="w-64 h-screen p-4 border-r flex flex-col bg-gray-50">
+      <h2 className="text-lg font-bold mb-4">Chat Channels</h2>
+
+      <ToggleGroup
+        type="single"
+        value={tab}
+        onValueChange={(v: any) => v && setTab(v as "open" | "group")}
+        className="mb-4"
+      >
+        <ToggleGroupItem value="open">Open</ToggleGroupItem>
+        <ToggleGroupItem value="group">Group</ToggleGroupItem>
+      </ToggleGroup>
+
+      {tab === "open" && <ChannelSection channels={openChannels} />}
+      {tab === "group" && <ChannelSection channels={groupChannels} />}
     </div>
   );
 }

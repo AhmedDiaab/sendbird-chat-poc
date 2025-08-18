@@ -9,6 +9,7 @@ import ChatPage from "@/pages/Chat/ChatPage";
 import OpenChannelsCatalogPage from "../pages/OpenChannelsCatalog/OpenChannelsCatalogPage";
 import OpenChannelManageMembersPage from "@/pages/OpenChannelsCatalog/OpenChannelManageMembersPage";
 import OpenChatPage from "@/pages/Chat/OpenChatPage";
+import ChatMessagesPage from "@/pages/Chat/OpenChat/ChatMessagesPage";
 
 export default function AppRoutes() {
   return (
@@ -34,7 +35,16 @@ export default function AppRoutes() {
           element={<OpenChannelManageMembersPage />}
         />
         <Route path="/chat" element={<ChatPage />} />
-        <Route path="/open-chat" element={<OpenChatPage />} />
+        <Route
+          path="/open-chat"
+          element={<OpenChatPage />}
+          children={[
+            <Route
+              path="/open-chat/:url"
+              element={<ChatMessagesPage type="open" />}
+            />,
+          ]}
+        />
       </Route>
     </Routes>
   );
