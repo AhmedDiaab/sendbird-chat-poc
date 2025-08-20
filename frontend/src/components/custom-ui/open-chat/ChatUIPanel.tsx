@@ -4,8 +4,11 @@
 import "@sendbird/uikit-react/dist/index.css";
 import ChatSidebar from "./layout/ChatSideBar";
 import { SendBirdProvider } from "@sendbird/uikit-react";
-import { GroupChannel } from "@sendbird/uikit-react/GroupChannel";
 import { Outlet } from "react-router-dom";
+import { useChatStore } from "@/store/chatStore";
+import { useEffect, useState } from "react";
+import GroupChannelSettings from "./components/GroupChannelSettings";
+import OpenCSettings from "./components/OpenChannelSettings";
 interface SendBirdUIPanelProps {
   appId: string;
   userId: string;
@@ -22,6 +25,14 @@ SendBirdUIPanelProps) {
   const selectedAccount = localStorage.getItem("selectedAccount") || "{}";
   const userId = JSON.parse(selectedAccount)!.userId;
   const accessToken = localStorage.getItem("token")!;
+  const currentChannelType = useChatStore((s) => s.currentChannelType);
+  const currentGroupChannelUrl = useChatStore((s) => s.currentGroupChannelUrl);
+  const currentOpenChannelUrl = useChatStore((s) => s.currentOpenChannelUrl);
+  const [settingsClosed, setSettingsClosed] = useState(false);
+
+  useEffect(() => {
+    console.log("Group channel updated:", currentGroupChannelUrl);
+  }, [currentGroupChannelUrl]);
 
   return (
     <div
@@ -37,6 +48,19 @@ SendBirdUIPanelProps) {
         <ChatSidebar />
         <div className="m-1"></div>
         <Outlet />
+        {currentChannelType === "group" && currentGroupChannelUrl && (
+          <GroupChannelSettings
+            url={currentGroupChannelUrl}
+            onCloseClick={() => console.log(currentGroupChannelUrl)}
+          />
+        )}
+
+        {currentChannelType === "open" && currentOpenChannelUrl && (
+          <OpenCSettings
+            url={currentOpenChannelUrl}
+            onCloseClick={() => console.log(currentOpenChannelUrl)}
+          />
+        )}
       </SendBirdProvider>
     </div>
   );
