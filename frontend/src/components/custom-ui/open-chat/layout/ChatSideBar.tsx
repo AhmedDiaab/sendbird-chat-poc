@@ -32,8 +32,7 @@ export default function ChatSidebar() {
 
   const handleSetCurrentOpenChannel = (channel: TOpenChannel) => {
     setCurrentOpenChannel(channel);
-    if (channel?.url) return;
-    console.log(channel.url)
+    if (!channel?.url) return;
     navigate(`/open-chat/open/${channel.url}`);
     setCurrentOpenChannelUrl(channel.url);
   };
@@ -42,16 +41,11 @@ export default function ChatSidebar() {
     if (!v) return;
     navigate(`/open-chat`);
     setTab(v as TabValue);
-    setCurrentGroupChannel(null);
+    setCurrentGroupChannelUrl(null);
     setCurrentOpenChannelUrl(null);
-    setCurrentChannelType(v as TabValue);
-    console.log()
-    
+    setCurrentChannelType(v as TabValue);    
   };
 
-  useEffect(() => {
-  console.log("Updated!", currentGroupChannelUrl);
-}, [currentGroupChannelUrl]);
 
   return (
     <div className="w-64 h-screen border-r flex flex-col bg-gray-50">

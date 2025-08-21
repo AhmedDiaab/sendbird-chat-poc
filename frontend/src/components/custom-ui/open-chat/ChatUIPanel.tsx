@@ -6,7 +6,7 @@ import ChatSidebar from "./layout/ChatSideBar";
 import { SendBirdProvider } from "@sendbird/uikit-react";
 import { Outlet } from "react-router-dom";
 import { useChatStore } from "@/store/chatStore";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import GroupChannelSettings from "./components/GroupChannelSettings";
 import OpenCSettings from "./components/OpenChannelSettings";
 interface SendBirdUIPanelProps {
@@ -30,9 +30,6 @@ SendBirdUIPanelProps) {
   const currentOpenChannelUrl = useChatStore((s) => s.currentOpenChannelUrl);
   const [settingsClosed, setSettingsClosed] = useState(false);
 
-  useEffect(() => {
-    console.log("Group channel updated:", currentGroupChannelUrl);
-  }, [currentGroupChannelUrl]);
 
   return (
     <div
