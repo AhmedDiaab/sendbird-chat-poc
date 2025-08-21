@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { devtools } from 'zustand/middleware'
 
 interface ChatState {
     currentUser: { userId: string; nickname: string } | null;
@@ -14,7 +15,7 @@ interface ChatState {
 
 }
 
-export const useChatStore = create<ChatState>((set) => ({
+export const useChatStore = create<ChatState>()(devtools((set) => ({
     currentUser: null,
     selectedChannel: null,
     currentChannelType: "open",
@@ -25,4 +26,4 @@ export const useChatStore = create<ChatState>((set) => ({
     setCurrentChannelType: (channelType) => set({ currentChannelType: channelType }),
     setCurrentGroupChannelUrl: (url) => set({ currentGroupChannelUrl: url }),
     setCurrentOpenChannelUrl: (url) => set({ currentOpenChannelUrl: url })
-}));
+})));
